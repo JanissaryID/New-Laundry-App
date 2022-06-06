@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option java_package = "com.example.laundryapp";
+option java_multiple_files = true;
+
+message DataPreferences {
+  // filter for showing / hiding completed tasks
+  string keyUrl = 1;
+  string storeCity = 2;
+  string storePassword = 3;
+}
