@@ -19,7 +19,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.laundryapp.api.machine.MachineViewModel
 import com.example.laundryapp.api.menu.MenuViewModel
+import com.example.laundryapp.api.payment.PaymentViewModel
 import com.example.laundryapp.api.price.PriceViewModel
+import com.example.laundryapp.api.qris.QrisViewModel
 import com.example.laundryapp.api.store.StoreViewModel
 import com.example.laundryapp.api.transaction.TransactionViewModel
 import com.example.laundryapp.navigation.NavGraphSetup
@@ -35,6 +37,8 @@ class MainActivity : ComponentActivity() {
     val priceViewModel by viewModels<PriceViewModel>()
     val machineViewModel by viewModels<MachineViewModel>()
     val transactionViewModel by viewModels<TransactionViewModel>()
+    val paymentViewModel by viewModels<PaymentViewModel>()
+    val qrisViewModel by viewModels<QrisViewModel>()
 
     private lateinit var protoViewModel: ProtoViewModel
 
@@ -47,14 +51,19 @@ class MainActivity : ComponentActivity() {
             KEY_URL = it.keyUrl
             STORE_CITY = it.storeCity
             STORE_PASSWORD = it.storePassword
-//            Log.d("debug", "Key From Proto $KEY_URL")
-//            Log.d("debug", "City From Proto $STORE_CITY")
-//            Log.d("debug", "Password From Proto $STORE_PASSWORD")
+//            QRIS_CLIENT_KEY = it.clientKey
+//            QRIS_CLIENT_ID = it.clientID
+//            QRIS_MERCHANT_ID = it.merchantID
+//            Log.d("debug", "Key From Proto $QRIS_CLIENT_KEY")
+//            Log.d("debug", "ID From Proto $QRIS_CLIENT_ID")
+//            Log.d("debug", "Merchant From Proto $QRIS_MERCHANT_ID")
         })
 
         if (STORE_NAME.isNullOrEmpty() && STORE_ID.isNullOrEmpty()){
-            storeViewModel.getStore(protoViewModel = protoViewModel)
+            storeViewModel.getStore(protoViewModel = protoViewModel, qrisViewModel = qrisViewModel)
         }
+
+
 
         setContent {
             LaundryAppTheme {
@@ -63,11 +72,12 @@ class MainActivity : ComponentActivity() {
                 NavGraphSetup(
                     navController = navController,
                     storeViewModel = storeViewModel,
-//                    qrisViewModel = qrisViewModel,
+                    qrisViewModel = qrisViewModel,
                     menuViewModel = menuViewModel,
                     priceViewModel = priceViewModel,
-//                    transactionViewModel = transactionViewModel,
+                    transactionViewModel = transactionViewModel,
                     machineViewModel = machineViewModel,
+                    paymentViewModel = paymentViewModel,
 //                    excelViewModel = excelViewModel,
                     protoViewModel = protoViewModel,
                     componentActivity = this

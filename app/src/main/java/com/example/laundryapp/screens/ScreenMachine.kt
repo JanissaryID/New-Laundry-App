@@ -64,7 +64,7 @@ fun WallMachine(
         .padding(top = 16.dp, bottom = 16.dp, start = 16.dp, end = 16.dp)
         .fillMaxSize()
     ) {
-        val (Content, ButtonPick) = createRefs()
+        val (Content, ButtonCash, ButtonQris) = createRefs()
         val modifier = Modifier
 
         Box(modifier = modifier.constrainAs(Content) {
@@ -80,7 +80,32 @@ fun WallMachine(
                 onItemClick = onItemClick)
         }
 
-        ButtonView(title = "Pick Machine", modifier.constrainAs(ButtonPick) {
+        ButtonView(title = "Pay With Cash", modifier.constrainAs(ButtonCash) {
+            bottom.linkTo(ButtonQris.top, 16.dp)
+            start.linkTo(parent.start)
+            end.linkTo(parent.end)
+        }, enable =
+        if (MACHINE_SELECTED){
+            true
+        }
+        else{
+            false
+        }
+        ){
+            MACHINE_SELECTED = false
+            machineViewModel.updateMachine(
+                navController = navController,
+                idMachine = MACHINE_ID,
+                timeMachine = MACHINE_TIME,
+                isPacket = MACHINE_PACKET,
+                transactionViewModel = transactionViewModel
+            )
+            Log.d("debug", "Number ${MACHINE_NUMBER} ${MACHINE_ID} ${MACHINE_TIME}")
+//            Log.d("debug", "value ${MENU_PACKET}")
+//            Toast.makeText(context, "Value Menu $selectedPrice", Toast.LENGTH_SHORT).show()
+        }
+
+        ButtonView(title = "Pay With Qris", modifier.constrainAs(ButtonQris) {
             bottom.linkTo(parent.bottom, 16.dp)
             start.linkTo(parent.start)
             end.linkTo(parent.end)
@@ -92,13 +117,17 @@ fun WallMachine(
             false
         }
         ){
-            machineViewModel.updateMachine(
-                navController = navController,
-                idMachine = MACHINE_ID,
-                timeMachine = MACHINE_TIME,
-                isPacket = MACHINE_PACKET,
-                transactionViewModel = transactionViewModel
-            )
+            Log.d("debug", "Key From Proto $QRIS_CLIENT_KEY")
+            Log.d("debug", "ID From Proto $QRIS_CLIENT_ID")
+            Log.d("debug", "Merchant From Proto $QRIS_MERCHANT_ID")
+//            MACHINE_SELECTED = false
+//            machineViewModel.updateMachine(
+//                navController = navController,
+//                idMachine = MACHINE_ID,
+//                timeMachine = MACHINE_TIME,
+//                isPacket = MACHINE_PACKET,
+//                transactionViewModel = transactionViewModel
+//            )
             Log.d("debug", "Number ${MACHINE_NUMBER} ${MACHINE_ID} ${MACHINE_TIME}")
 //            Log.d("debug", "value ${MENU_PACKET}")
 //            Toast.makeText(context, "Value Menu $selectedPrice", Toast.LENGTH_SHORT).show()

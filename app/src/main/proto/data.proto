@@ -8,4 +8,7 @@ message DataPreferences {
   string keyUrl = 1;
   string storeCity = 2;
   string storePassword = 3;
+//  string clientKey = 4;
+//  string clientID = 5;
+//  string merchantID = 6;
 }

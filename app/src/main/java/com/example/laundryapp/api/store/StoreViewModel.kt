@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.example.laundryapp.*
 import com.example.laundryapp.api.machine.MachineModel
+import com.example.laundryapp.api.qris.QrisViewModel
 import com.example.laundryapp.proto.ProtoViewModel
 import kotlinx.coroutines.*
 import retrofit2.Call
@@ -20,7 +21,7 @@ class StoreViewModel: ViewModel() {
     var stateStore: Int by mutableStateOf(0)
     var errorMessage: String by mutableStateOf("")
 
-    fun getStore(protoViewModel: ProtoViewModel){
+    fun getStore(protoViewModel: ProtoViewModel, qrisViewModel: QrisViewModel){
         try {
             stateStore = 0
             var viewModelJob = Job()
@@ -40,6 +41,11 @@ class StoreViewModel: ViewModel() {
                                     STORE_NAME = response.body()!![0].storeName!!
                                     STORE_ID = response.body()!![0].id!!
                                     storeListResponse = response.body()!!
+                                    if (!STORE_ID.isNullOrEmpty()){
+                                        if (QRIS_CLIENT_KEY.isNullOrEmpty() && QRIS_CLIENT_ID.isNullOrEmpty() && QRIS_MERCHANT_ID.isNullOrEmpty()){
+                                            qrisViewModel.getQris()
+                                        }
+                                    }
 //                                    Log.d("debug", "Store Name $STORE_NAME")
                                     stateStore = 1
                                 }

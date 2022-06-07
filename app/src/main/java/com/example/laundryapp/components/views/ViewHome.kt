@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
-import com.example.laundryapp.MACHINE_TIME
+import com.example.laundryapp.*
 import com.example.laundryapp.api.menu.MenuModel
 import com.example.laundryapp.api.menu.MenuViewModel
 import com.example.laundryapp.api.price.PriceModel
@@ -57,7 +57,7 @@ fun ViewHome(
 
     var enablePrice by remember { mutableStateOf(false) }
 
-
+    var buttonOn by remember { mutableStateOf(false) }
 
     if(!selectedMenu.isNullOrEmpty() && selected_index_class != -1){
         enablePrice = true
@@ -234,6 +234,8 @@ fun ViewHome(
                         MACHINE_TIME = label.priceTime!!
                         selectedPrice = "${label.priceTitle.toString()} - ${label.price.toString()}"
                         selectedPriceNominal = label.price.toString()
+                        MENU_MACHINE = label.priceTitle.toString()
+                        PRICE = label.price.toString()
                         expandedPrice = false
                     }, text = {
                         Text(text = "${label.priceTitle.toString()} - ${label.price.toString()}")
@@ -242,22 +244,27 @@ fun ViewHome(
             }
         }
 
+        if(!selectedIdMenu.isNullOrEmpty() && !selectedPrice.isNullOrEmpty() && selected_index_class != -1) buttonOn = true else buttonOn = false
+
         ButtonView(title = "Pick Machine", modifier.constrainAs(ButtonPick) {
             bottom.linkTo(parent.bottom, 16.dp)
             start.linkTo(parent.start)
             end.linkTo(parent.end)
         }, enable =
-        if (!selectedIdMenu.isNullOrEmpty() && !selectedPrice.isNullOrEmpty() && selected_index_class != -1){
+        if (buttonOn){
             true
         }
         else{
             false
         }
         ){
+            buttonOn = false
+            CLASS_MACHINE = selected_index_class
+            MENU_TRANSACTION = selectedMenu
             navController.navigate(route = Screens.Machine.route)
             Log.d("debug", "price Menu ${selectedPriceNominal}")
 //            Log.d("debug", "value ${MENU_PACKET}")
-            Toast.makeText(context, "Value Menu $selectedPrice", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(context, "Value Menu $selectedPrice", Toast.LENGTH_SHORT).show()
         }
     }
 

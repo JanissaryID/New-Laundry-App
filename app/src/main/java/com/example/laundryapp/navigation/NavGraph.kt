@@ -15,8 +15,11 @@ import com.example.laundryapp.STORE_ID
 import com.example.laundryapp.STORE_NAME
 import com.example.laundryapp.api.machine.MachineViewModel
 import com.example.laundryapp.api.menu.MenuViewModel
+import com.example.laundryapp.api.payment.PaymentViewModel
 import com.example.laundryapp.api.price.PriceViewModel
+import com.example.laundryapp.api.qris.QrisViewModel
 import com.example.laundryapp.api.store.StoreViewModel
+import com.example.laundryapp.api.transaction.TransactionViewModel
 import com.example.laundryapp.proto.ProtoViewModel
 import com.example.laundryapp.screens.ScreenHome
 import com.example.laundryapp.screens.ScreenMachine
@@ -27,11 +30,12 @@ import com.example.laundryapp.screens.ScreenSetting
 fun NavGraphSetup(
     navController: NavHostController,
     storeViewModel: StoreViewModel,
-//    qrisViewModel: QrisViewModel,
+    qrisViewModel: QrisViewModel,
     menuViewModel: MenuViewModel,
     priceViewModel: PriceViewModel,
     machineViewModel: MachineViewModel,
-//    transactionViewModel: TransactionViewModel,
+    transactionViewModel: TransactionViewModel,
+    paymentViewModel: PaymentViewModel,
     protoViewModel: ProtoViewModel,
 //    excelViewModel: ExcelViewModel,
     componentActivity: ComponentActivity
@@ -168,7 +172,8 @@ fun NavGraphSetup(
             }
             ScreenMachine(
                 navController = navController,
-                machineViewModel = machineViewModel
+                machineViewModel = machineViewModel,
+                transactionViewModel = transactionViewModel
             )
         }
 //

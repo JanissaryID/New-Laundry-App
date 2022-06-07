@@ -9,7 +9,6 @@ val TITLE_SCREEN = listOf("Home", "Add Store", "Qris", "Menu", "Add Menu Price",
 
 var KEY_URL: String by mutableStateOf("")
 
-
 //Store Variable
 var STORE_ID: String by mutableStateOf("")
 var STORE_NAME: String by mutableStateOf("")
@@ -25,3 +24,15 @@ var MACHINE_ID: String by mutableStateOf("")
 var MACHINE_NUMBER: Int by mutableStateOf(0)
 var MACHINE_TIME: Int by mutableStateOf(0)
 var MACHINE_PACKET: Boolean by mutableStateOf(false)
+
+//Transaction Variable
+var CLASS_MACHINE: Int by mutableStateOf(-1)
+var PRICE: String by mutableStateOf("")
+var MENU_MACHINE: String by mutableStateOf("")
+var MENU_TRANSACTION: String by mutableStateOf("")
+
+//Qris Variable
+var QRIS_CLIENT_KEY: String by mutableStateOf("")
+var QRIS_CLIENT_ID: String by mutableStateOf("")
+var QRIS_MERCHANT_ID: String by mutableStateOf("")
+var PAYMENT_SUCCESS: Boolean by mutableStateOf(false)

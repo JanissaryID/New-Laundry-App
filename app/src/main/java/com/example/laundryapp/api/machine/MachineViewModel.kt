@@ -1,12 +1,14 @@
 package com.example.laundryapp.api.machine
 
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
-import com.example.laundryapp.STORE_ID
+import com.example.laundryapp.*
 import com.example.laundryapp.api.transaction.TransactionViewModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -69,10 +71,23 @@ class MachineViewModel: ViewModel() {
         try {
             MachineApp.CreateInstance().updateMachine(id = idMachine, bodyDataUpdate).enqueue(object :
                 Callback<MachineModel> {
+                @RequiresApi(Build.VERSION_CODES.O)
                 override fun onResponse(call: Call<MachineModel>, response: Response<MachineModel>) {
-                    Log.d("debug", "Code Update ${response}")
+                    Log.d("debug", "Code Update Machine ${response}")
                     if(response.code() == 200){
-//                        transactionViewModel.
+                        transactionViewModel.insertTransaction(
+                            classMachine = CLASS_MACHINE,
+                            machineID = MACHINE_ID,
+                            machinePacket = MACHINE_PACKET,
+                            navController = navController,
+                            numbermachine = MACHINE_NUMBER,
+                            price = PRICE,
+                            storeID = STORE_ID,
+                            transactionMenuMachine = MENU_MACHINE,
+                            transactionClassmachine = if(CLASS_MACHINE == 1) true else false,
+                            typePaymentTransaction = false, // For Cash
+                            typetransaction = MENU_TRANSACTION
+                        )
 //                        navController.navigate(route = Screens.Machine.route){
 //                            popUpTo(Screens.Machine.route) {
 //                                inclusive = true
