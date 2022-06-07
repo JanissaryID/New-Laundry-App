@@ -8,7 +8,7 @@ sealed class Screens(val route: String){
 //    object AddEditMenuPrice: Screens(route = "add_menu_price_screen")
 //    object Price: Screens(route = "price_screen")
 //    object AddEditPrice: Screens(route = "add_price_screen")
-//    object Qris: Screens(route = "qris_screen")
+    object Qris: Screens(route = "qris_screen")
 //    object ListTransactions: Screens(route = "list_transactions_screen")
     object Machine: Screens(route = "machine_screen")
 //    object AddEditMachine: Screens(route = "add_machine_screen")

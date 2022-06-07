@@ -37,21 +37,23 @@ class PaymentViewModel: ViewModel() {
     @RequiresApi(Build.VERSION_CODES.O)
     fun getQR(){
 
-        val length = 20
+        val length = (0..19).random()
         val randomReff = getRandomString(length)
 
         val QRParameter = PaymentQrisModel(
-            merchantid = QRIS_MERCHANT_ID,
-//            10000,
-            nominal = PRICE.toInt(),
+            merchantid = "210910003000000",
+            nominal = 2000,
             tip = 0,
-            ref = randomReff,
+            ref = "${randomReff}",
             callback = "https://webhook.site/73121a4e-5dd9-423d-980b-0ace6c719b90",
-            expire = 5)
+            expire = 5
+        )
 
         val code = "$QRIS_CLIENT_ID:$QRIS_CLIENT_KEY:$QRIS_MERCHANT_ID"
 
         val encodedString: String = Base64.getEncoder().encodeToString(code.toByteArray())
+
+        Log.d("debug", "url Payment Reff : ${randomReff}")
 
         try {
             insatanceRetrofitQR = PaymentApp.CreateInstance().Qris("Bearer "+ encodedString,QRParameter).enqueue(object :
@@ -60,16 +62,30 @@ class PaymentViewModel: ViewModel() {
                     call: Call<PaymentQrisRawModel>,
                     response: Response<PaymentQrisRawModel>
                 ) {
+                    Log.d("debug", "url Payment Code : ${code}")
+//                    Log.d("debug", "url Payment Code Hash : ${encodedString}")
+                    Log.d("debug", "url Payment : ${response}")
+                    Log.d("debug", "url Payment : ${response.body()}")
                     stateQR = 0
                     if(!PAYMENT_SUCCESS){
                         if (response.code() == 200) {
+                            Log.d("debug", "raw QR View Model ${response.body()}")
+                            Log.d("debug", "raw QR View Model ${response.body()?.rawqr.toString()}")
                             if (response.body()?.status == "success"){
                                 rawString = response.body()?.rawqr.toString()
 //                            Log.d("debug", "raw QR View Model ${response.body()?.rawqr.toString()}")
-                                Log.d("debug", "reff ID View Model ${response.body()?.refid!!}")
+//                                Log.d("debug", "reff ID View Model ${response.body()?.refid!!}")
                                 reffID = response.body()?.refid!!
                                 stateQR = 1
                             }
+                            else{
+                                stateQR = 3
+                                PaymentApp.DestroyInstance()
+                            }
+                        }
+                        else{
+                            stateQR = 3
+                            PaymentApp.DestroyInstance()
                         }
                     }
                 }

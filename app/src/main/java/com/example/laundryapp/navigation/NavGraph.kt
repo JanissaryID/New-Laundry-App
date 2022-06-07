@@ -23,6 +23,7 @@ import com.example.laundryapp.api.transaction.TransactionViewModel
 import com.example.laundryapp.proto.ProtoViewModel
 import com.example.laundryapp.screens.ScreenHome
 import com.example.laundryapp.screens.ScreenMachine
+import com.example.laundryapp.screens.ScreenQris
 import com.example.laundryapp.screens.ScreenSetting
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -75,20 +76,18 @@ fun NavGraphSetup(
 //            )
 //        }
 //
-//        composable(
-//            route = Screens.Qris.route,
-//        ){
-//            LaunchedEffect(key1 = STORE_ID){
-//                qrisViewModel.getQris()
-////                Log.d("debug", "Store ID : ${STORE_ID}")
-//            }
-//            ScreenQris(
-//                navController = navController,
-//                qrisViewModel = qrisViewModel,
-////                machineViewModel = machineViewModel,
-////                transactionViewModel = transactionViewModel
-//            )
-//        }
+        composable(
+            route = Screens.Qris.route,
+        ){
+            LaunchedEffect(key1 = STORE_ID){
+                Log.d("debug", "Qris NavGraph")
+                paymentViewModel.getQR()
+            }
+            ScreenQris(
+                navController = navController,
+                paymentViewModel = paymentViewModel
+            )
+        }
 //
 //        composable(
 //            route = Screens.MenuPrice.route,

@@ -33,9 +33,6 @@ import com.example.laundryapp.navigation.Screens
 fun ScreenQris(
     navController: NavController,
     paymentViewModel: PaymentViewModel,
-//    stateQR: Int,
-//    payment: String,
-    transactionViewModel: TransactionViewModel
 ) {
     val context = LocalContext.current
 
@@ -43,16 +40,12 @@ fun ScreenQris(
         topBar = { ViewTopBar(
             navController = navController,
             title = TITLE_SCREEN[2],
-            screenBack = Screens.Home.route
+            screenBack = Screens.Machine.route
         ) }
     ){
         WallQris(
             navController = navController,
             paymentViewModel = paymentViewModel,
-//            stateQR = stateQR,
-//            payment = payment
-//            machineViewModel = machineViewModel,
-//            transactionViewModel = transactionViewModel
         )
     }
 
@@ -62,17 +55,19 @@ fun ScreenQris(
 @Composable
 fun WallQris(
     paymentViewModel: PaymentViewModel,
-//    stateQR: Int,
-//    payment: String,
-//    transactionViewModel: TransactionViewModel,
     navController: NavController,
-//    machineViewModel: MachineViewModel
+    machineViewModel: MachineViewModel = MachineViewModel(),
+    transactionViewModel: TransactionViewModel = TransactionViewModel()
 ) {
     var selectedIndex by remember { mutableStateOf(-1) }
     val onItemClick = { index: Int -> selectedIndex = index}
 
     val statePayment = paymentViewModel.stateQR
     val qris = paymentViewModel.rawString
+    var buttonClick:  Boolean = false
+    var buttonCheckClick:  Boolean = false
+
+    PAYMENT_SUCCESS = false
 
     ConstraintLayout(modifier = Modifier
         .fillMaxSize()
@@ -80,11 +75,11 @@ fun WallQris(
         val (title,number, content, buttonOK, buttonCheck) = createRefs()
         val modifier: Modifier = Modifier
 
-//        Log.d("debug", "Price ${PRICE_VALUE[0].price}")
+        Log.d("debug", "State QR $statePayment $PAYMENT_SUCCESS")
 
         Text(
             color = MaterialTheme.colorScheme.primary,
-            fontSize = MaterialTheme.typography.displayMedium.fontSize,
+            fontSize = MaterialTheme.typography.titleLarge.fontSize,
             fontWeight = FontWeight.SemiBold,
             text = "Payment Qris",
             modifier = modifier.constrainAs(title){
@@ -96,7 +91,7 @@ fun WallQris(
 
         Text(
             color = MaterialTheme.colorScheme.primary,
-            fontSize = MaterialTheme.typography.displayMedium.fontSize,
+            fontSize = MaterialTheme.typography.titleLarge.fontSize,
             fontWeight = FontWeight.SemiBold,
             text = "Machine Number $MACHINE_NUMBER",
             modifier = modifier.constrainAs(number){
@@ -112,7 +107,7 @@ fun WallQris(
             end.linkTo(parent.end)
             top.linkTo(parent.top)
         }){
-            PaymentLoadData(paymentState = statePayment, rawQR = qris)
+            PaymentLoadData(paymentState = statePayment, rawQR = qris, paymentViewModel = paymentViewModel)
             if (paymentViewModel.reffID != 0L){
                 paymentViewModel.getResponsePayment()
             }
@@ -122,31 +117,30 @@ fun WallQris(
             bottom.linkTo(buttonOK.top, 16.dp)
             start.linkTo(parent.start)
             end.linkTo(parent.end)
-        }, enable = if(statePayment == 1) true else false){
-//            CHECK_PAYMENT_OK = true
+        }, enable = if(statePayment == 1 && !buttonCheckClick) true else false){
             PAYMENT_SUCCESS = true
-//            STOP_GET_PAYMENT_STATUS = true
+            buttonClick = true
+            buttonCheckClick = true
         }
 
         ButtonView(title = "Turn On Machine", modifier.constrainAs(buttonOK) {
             bottom.linkTo(parent.bottom, 16.dp)
             start.linkTo(parent.start)
             end.linkTo(parent.end)
-        }, enable = if(PAYMENT_SUCCESS) true else false){
+        }, enable = if(PAYMENT_SUCCESS && buttonClick) true else false){
 
-//            Toast.makeText(context, "MENU $MENU_VALUE", Toast.LENGTH_SHORT).show()
-//            machineViewModel.updateMachine(idMachine = MACHINE_ID, isPacket = PRICE_VALUE[0].isPacket!!)
-//            transactionViewModel.insertTransaction(
-//                classmachine = if(INDEX_CLASS_MACHINE == 0) false else true,
-//                idmachine = MACHINE_ID,
-//                price = PRICE_VALUE[0].price!!,
-//                typetransaction = MENU_VALUE,
-//                typePaymentTransaction = true,
-//                navController = navController,
-//                transactionMenuMachine = MENU_VALUE_MACHINE,
-//                numbermachine = MACHINE_NUMBER
-//            )
+            buttonClick = false
+
+            machineViewModel.updateMachine(
+                navController = navController,
+                idMachine = MACHINE_ID,
+                timeMachine = MACHINE_TIME,
+                isPacket = MACHINE_PACKET,
+                typePayment = true,
+                transactionViewModel = transactionViewModel
+            )
             paymentViewModel.reffID = 0L
+            Log.d("debug", "Number ${MACHINE_NUMBER} ${MACHINE_ID} ${MACHINE_TIME}")
         }
     }
 }

@@ -11,17 +11,18 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 
 interface PaymentService {
+
     @Headers(
         "Accept: application/json",
         "Content-Type: application/json"
     )
-    @POST("/qris/generate/")
+    @POST("generate/")
     fun Qris(@Header("Authorization") authHeader: String, @Body qrData: PaymentQrisModel) : Call<PaymentQrisRawModel>
 
     @Headers(
         "Accept: application/json",
         "Content-Type: application/json"
     )
-    @POST("/qris/check-status/")
+    @POST("check-status/")
     fun CheckPayment(@Header("Authorization") authHeader: String, @Body statusData: ResponsePaymentQrisModel) : Call<ResponsePaymentQrisGetModel>
 }

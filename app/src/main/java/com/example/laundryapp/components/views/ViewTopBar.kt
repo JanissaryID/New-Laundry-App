@@ -12,6 +12,8 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.laundryapp.PAYMENT_SUCCESS
+import com.example.laundryapp.api.payment.PaymentViewModel
 import com.example.laundryapp.navigation.Screens
 
 @Composable
@@ -51,7 +53,6 @@ fun ViewTopBarHome(
 fun ViewTopBar(
     navController: NavController,
     title: String,
-//    qrisViewModel: QrisViewModel,
     screenBack: String
 ) {
     val context = LocalContext.current

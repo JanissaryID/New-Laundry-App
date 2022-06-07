@@ -64,6 +64,7 @@ class MachineViewModel: ViewModel() {
         isPacket: Boolean,
         timeMachine: Int,
         transactionViewModel: TransactionViewModel,
+        typePayment: Boolean,
         navController: NavController
     ){
         val bodyDataUpdate = MachineModel(machineStatus = true, isPacket = isPacket, priceTime = timeMachine)
@@ -85,7 +86,7 @@ class MachineViewModel: ViewModel() {
                             storeID = STORE_ID,
                             transactionMenuMachine = MENU_MACHINE,
                             transactionClassmachine = if(CLASS_MACHINE == 1) true else false,
-                            typePaymentTransaction = false, // For Cash
+                            typePaymentTransaction = typePayment, //False For Cash
                             typetransaction = MENU_TRANSACTION
                         )
 //                        navController.navigate(route = Screens.Machine.route){

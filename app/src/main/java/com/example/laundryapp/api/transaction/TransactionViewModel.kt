@@ -24,7 +24,7 @@ class TransactionViewModel: ViewModel() {
     var stateTransaction: Int by mutableStateOf(0)
     var errorMessage: String by mutableStateOf("")
 
-    fun getTransaction(){
+    fun getTransactionActive(){
         try {
             Log.d("debug", "Date Transaction : ${DATE_PICK}")
             TransactionApp.CreateInstance().fetchTransaction(lookup = "*",store = STORE_ID, date = "$DATE_PICK", finish = true).enqueue(object :

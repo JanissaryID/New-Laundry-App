@@ -16,6 +16,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.example.laundryapp.*
 import com.example.laundryapp.api.machine.MachineViewModel
+import com.example.laundryapp.api.payment.PaymentViewModel
 import com.example.laundryapp.api.transaction.TransactionViewModel
 import com.example.laundryapp.components.ButtonView
 import com.example.laundryapp.components.machine.MachineLoadData
@@ -42,7 +43,7 @@ fun ScreenMachine(
         WallMachine(
             navController = navController,
             machineViewModel = machineViewModel,
-            transactionViewModel = transactionViewModel
+            transactionViewModel = transactionViewModel,
         )
     }
 
@@ -52,13 +53,17 @@ fun ScreenMachine(
 fun WallMachine(
     transactionViewModel: TransactionViewModel,
     navController: NavController,
-    machineViewModel: MachineViewModel
+    machineViewModel: MachineViewModel,
+    paymentViewModel: PaymentViewModel = PaymentViewModel()
 ) {
     var selectedIndex by remember { mutableStateOf(-1) }
     val onItemClick = { index: Int -> selectedIndex = index}
 
     val stateMachine = machineViewModel.stateMachine
     val machine = machineViewModel.machineListResponse
+
+    paymentViewModel.reffID = 0L
+    PAYMENT_SUCCESS = true
 
     ConstraintLayout(modifier = Modifier
         .padding(top = 16.dp, bottom = 16.dp, start = 16.dp, end = 16.dp)
@@ -98,6 +103,7 @@ fun WallMachine(
                 idMachine = MACHINE_ID,
                 timeMachine = MACHINE_TIME,
                 isPacket = MACHINE_PACKET,
+                typePayment = false,
                 transactionViewModel = transactionViewModel
             )
             Log.d("debug", "Number ${MACHINE_NUMBER} ${MACHINE_ID} ${MACHINE_TIME}")
@@ -117,9 +123,11 @@ fun WallMachine(
             false
         }
         ){
-            Log.d("debug", "Key From Proto $QRIS_CLIENT_KEY")
-            Log.d("debug", "ID From Proto $QRIS_CLIENT_ID")
-            Log.d("debug", "Merchant From Proto $QRIS_MERCHANT_ID")
+            PAYMENT_SUCCESS = false
+            navController.navigate(route = Screens.Qris.route)
+//            Log.d("debug", "Key From Proto $QRIS_CLIENT_KEY")
+//            Log.d("debug", "ID From Proto $QRIS_CLIENT_ID")
+//            Log.d("debug", "Merchant From Proto $QRIS_MERCHANT_ID")
 //            MACHINE_SELECTED = false
 //            machineViewModel.updateMachine(
 //                navController = navController,
