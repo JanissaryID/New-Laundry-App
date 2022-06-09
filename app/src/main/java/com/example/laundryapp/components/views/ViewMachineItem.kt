@@ -45,7 +45,7 @@ fun ViewMachineItem(
                         MACHINE_ID = machineModel.id!!
                         MACHINE_NUMBER = machineModel.machineNumber!!
 //                        MACHINE_TIME = machineModel.priceTime!!
-                        MACHINE_PACKET = machineModel.isPacket!!
+//                        MACHINE_PACKET = machineModel.isPacket!!
                         onClick.invoke(index)
                     }
                 },

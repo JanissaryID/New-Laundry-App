@@ -10,17 +10,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.laundryapp.TITLE_SCREEN
-import com.example.laundryapp.api.machine.MachineViewModel
-import com.example.laundryapp.api.payment.PaymentViewModel
 import com.example.laundryapp.api.transaction.TransactionViewModel
 import com.example.laundryapp.components.views.ViewTopBar
-import com.example.laundryapp.components.views.screens.ViewMachine
 import com.example.laundryapp.components.views.screens.ViewTransactionActive
+import com.example.laundryapp.components.views.screens.ViewTransactionFinish
 import com.example.laundryapp.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScreenTransactionActive(
+fun ScreenTransactionFinish(
     navController: NavController,
     transactionViewModel: TransactionViewModel
 ) {
@@ -29,11 +27,11 @@ fun ScreenTransactionActive(
     Scaffold(
         topBar = { ViewTopBar(
             navController = navController,
-            title = TITLE_SCREEN[1],
+            title = TITLE_SCREEN[4],
             screenBack = Screens.Home.route
         ) }
     ){
-        WallTransactionActive(
+        WallTransactionFinish(
             transactionViewModel = transactionViewModel,
             navController = navController
         )
@@ -42,12 +40,12 @@ fun ScreenTransactionActive(
 }
 
 @Composable
-fun WallTransactionActive(
+fun WallTransactionFinish(
     transactionViewModel: TransactionViewModel,
     navController: NavController,
 ) {
     Box(modifier = Modifier.padding(start = 16.dp, end = 16.dp)) {
-        ViewTransactionActive(
+        ViewTransactionFinish(
             navController = navController,
             transactionViewModel = transactionViewModel
         )

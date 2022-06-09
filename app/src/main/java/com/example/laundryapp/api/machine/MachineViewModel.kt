@@ -22,7 +22,11 @@ class MachineViewModel: ViewModel() {
 
     fun getMachine(){
         try {
-            MachineApp.CreateInstance().fetchMachine(store = STORE_ID).enqueue(object :
+            MachineApp.CreateInstance().fetchMachine(
+                store = STORE_ID,
+                classes = if(CLASS_MACHINE == 0) false else true,
+                type = if (MENU_TRANSACTION != "Dryer") false else true
+            ).enqueue(object :
                 Callback<ArrayList<MachineModel>> {
                 override fun onResponse(call: Call<ArrayList<MachineModel>>, response: Response<ArrayList<MachineModel>>) {
 //                    Log.d("debug", "url : ${response}")
@@ -76,19 +80,29 @@ class MachineViewModel: ViewModel() {
                 override fun onResponse(call: Call<MachineModel>, response: Response<MachineModel>) {
                     Log.d("debug", "Code Update Machine ${response}")
                     if(response.code() == 200){
-                        transactionViewModel.insertTransaction(
-                            classMachine = CLASS_MACHINE,
-                            machineID = MACHINE_ID,
-                            machinePacket = MACHINE_PACKET,
-                            navController = navController,
-                            numbermachine = MACHINE_NUMBER,
-                            price = PRICE,
-                            storeID = STORE_ID,
-                            transactionMenuMachine = MENU_MACHINE,
-                            transactionClassmachine = if(CLASS_MACHINE == 1) true else false,
-                            typePaymentTransaction = typePayment, //False For Cash
-                            typetransaction = MENU_TRANSACTION
-                        )
+                        if (!BUTTON_VISIBLE){
+                            transactionViewModel.updateTransaction(
+                                navController = navController,
+                                machineID = MACHINE_ID,
+                                numbermachine = MACHINE_NUMBER
+                            )
+                        }
+                        else{
+                            transactionViewModel.insertTransaction(
+                                classMachine = CLASS_MACHINE,
+                                machineID = MACHINE_ID,
+                                machinePacket = PRICE_PACKET,
+                                navController = navController,
+                                numbermachine = MACHINE_NUMBER,
+                                price = PRICE,
+                                storeID = STORE_ID,
+                                transactionMenuMachine = MENU_MACHINE,
+                                transactionClassmachine = if(CLASS_MACHINE == 1) true else false,
+                                typePaymentTransaction = typePayment, //False For Cash
+                                typetransaction = MENU_TRANSACTION
+                            )
+                        }
+
 //                        navController.navigate(route = Screens.Machine.route){
 //                            popUpTo(Screens.Machine.route) {
 //                                inclusive = true

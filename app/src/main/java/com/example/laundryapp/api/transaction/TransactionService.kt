@@ -1,10 +1,8 @@
 package com.example.laundryapp.api.transaction
 
+import com.example.laundryapp.api.machine.MachineModel
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface TransactionService {
     @GET("Transaction")
@@ -17,4 +15,10 @@ interface TransactionService {
 
     @POST("Transaction")
     fun insertTransactions(@Body statusData: TransactionModel) : Call<TransactionModel>
+
+    @PATCH("Transaction/{id}")
+    fun updateTransaction(
+        @Path("id") id: String?, @Body updateData : TransactionModel
+    ): Call<TransactionModel>
+
 }

@@ -10,6 +10,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.laundryapp.DATE_PICK
 import com.example.laundryapp.KEY_URL
 import com.example.laundryapp.STORE_ID
 import com.example.laundryapp.STORE_NAME
@@ -21,10 +22,7 @@ import com.example.laundryapp.api.qris.QrisViewModel
 import com.example.laundryapp.api.store.StoreViewModel
 import com.example.laundryapp.api.transaction.TransactionViewModel
 import com.example.laundryapp.proto.ProtoViewModel
-import com.example.laundryapp.screens.ScreenHome
-import com.example.laundryapp.screens.ScreenMachine
-import com.example.laundryapp.screens.ScreenQris
-import com.example.laundryapp.screens.ScreenSetting
+import com.example.laundryapp.screens.*
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -53,29 +51,9 @@ fun NavGraphSetup(
                 navController = navController,
                 menuViewModel = menuViewModel,
                 priceViewModel = priceViewModel
-//                priceViewModel = priceViewModel,
-//                settingViewModel = settingViewModel,
-//                transactionViewModel = transactionViewModel,
-//                machineViewModel = machineViewModel
             )
         }
-//
-//        composable(
-//            route = Screens.AddStore.route,
-//        ){
-//            ScreenAddStore(navController = navController, storeViewModel = storeViewModel)
-//        }
-//
-//        composable(
-//            route = Screens.Menu.route,
-//        ){
-//            ScreenMenu(
-//                navController = navController,
-////                machineViewModel = machineViewModel,
-////                transactionViewModel = transactionViewModel
-//            )
-//        }
-//
+
         composable(
             route = Screens.Qris.route,
         ){
@@ -88,80 +66,31 @@ fun NavGraphSetup(
                 paymentViewModel = paymentViewModel
             )
         }
-//
-//        composable(
-//            route = Screens.MenuPrice.route,
-//        ){
-//            LaunchedEffect(key1 = STORE_ID){
-//                menuViewModel.getMenu()
-////                Log.d("debug", "Store ID : ${STORE_ID}")
-//            }
-//            ScreenMenuPrice(
-//                navController = navController,
-//                menuViewModel = menuViewModel
-////                qrisViewModel = qrisViewModel,
-////                machineViewModel = machineViewModel,
-////                transactionViewModel = transactionViewModel
-//            )
-//        }
-//
-//        composable(
-//            route = Screens.AddEditMenuPrice.route,
-//        ){
-//            ScreenMenuPriceAddEdit(
-//                navController = navController,
-//                menuViewModel = menuViewModel
-////                qrisViewModel = qrisViewModel,
-////                machineViewModel = machineViewModel,
-////                transactionViewModel = transactionViewModel
-//            )
-//        }
-//
-//        composable(
-//            route = Screens.Price.route,
-//        ){
-//            LaunchedEffect(key1 = STORE_ID){
-//                priceViewModel.getPrice()
-////                Log.d("debug", "Store ID : ${STORE_ID}")
-//            }
-//            ScreenPrice(
-//                navController = navController,
-//                priceViewModel = priceViewModel
-////                qrisViewModel = qrisViewModel,
-////                machineViewModel = machineViewModel,
-////                transactionViewModel = transactionViewModel
-//            )
-//        }
-//
-//        composable(
-//            route = Screens.AddEditPrice.route,
-//        ){
-//            menuViewModel.getMenu()
-//            ScreenPriceAddEdit(
-//                navController = navController,
-//                menuViewModel = menuViewModel,
-//                priceViewModel = priceViewModel
-////                qrisViewModel = qrisViewModel,
-////                machineViewModel = machineViewModel,
-////                transactionViewModel = transactionViewModel
-//            )
-//        }
-//
-//        composable(
-//            route = Screens.ListTransactions.route,
-//        ){
-//            if (DATE_PICK != ""){
-//                transactionViewModel.getTransaction()
-//            }
-//            transactionViewModel.getTransaction()
-//            ScreenTransaction(
-//                navController = navController,
-//                transactionViewModel = transactionViewModel,
-//                excelViewModel = excelViewModel
-////                priceViewModel = priceViewModel
-//            )
-//        }
-//
+        
+        composable(
+            route = Screens.TransactionActive.route,
+        ){
+            LaunchedEffect(key1 = STORE_ID){
+                Log.d("debug", "Date : ${DATE_PICK}")
+                if (DATE_PICK != ""){
+                    transactionViewModel.getTransaction(isFinish = false)
+                }
+            }
+            ScreenTransactionActive(navController = navController, transactionViewModel = transactionViewModel)
+        }
+
+        composable(
+            route = Screens.TransactionFinish.route,
+        ){
+            LaunchedEffect(key1 = STORE_ID){
+                Log.d("debug", "Date : ${DATE_PICK}")
+                if (DATE_PICK != ""){
+                    transactionViewModel.getTransaction(isFinish = true)
+                }
+            }
+            ScreenTransactionFinish(navController = navController, transactionViewModel = transactionViewModel)
+        }
+
         composable(
             route = Screens.Machine.route,
         ){
@@ -175,30 +104,13 @@ fun NavGraphSetup(
                 transactionViewModel = transactionViewModel
             )
         }
-//
-//        composable(
-//            route = Screens.AddEditMachine.route,
-//        ){
-////            LaunchedEffect(key1 = STORE_ID){
-////                machineViewModel.getMachine()
-//////                Log.d("debug", "Store ID : ${STORE_ID}")
-////            }
-//            ScreenMachineAddEdit(
-//                navController = navController,
-//                machineViewModel = machineViewModel
-////                qrisViewModel = qrisViewModel,
-////                machineViewModel = machineViewModel,
-////                transactionViewModel = transactionViewModel
-//            )
-//        }
-//
+
         composable(
             route = Screens.Setting.route,
         ){
             ScreenSetting(
                 protoViewModel = protoViewModel,
                 navController = navController,
-//                storeViewModel = storeViewModel
             )
         }
 

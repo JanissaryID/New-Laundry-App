@@ -22,6 +22,7 @@ import com.example.laundryapp.components.ButtonView
 import com.example.laundryapp.components.machine.MachineLoadData
 import com.example.laundryapp.components.views.ViewTopBar
 import com.example.laundryapp.components.views.ViewTopBarHome
+import com.example.laundryapp.components.views.screens.ViewMachine
 import com.example.laundryapp.navigation.Screens
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -36,7 +37,7 @@ fun ScreenMachine(
     Scaffold(
         topBar = { ViewTopBar(
             navController = navController,
-            title = TITLE_SCREEN[8],
+            title = TITLE_SCREEN[2],
             screenBack = Screens.Home.route
         ) }
     ){
@@ -56,89 +57,10 @@ fun WallMachine(
     machineViewModel: MachineViewModel,
     paymentViewModel: PaymentViewModel = PaymentViewModel()
 ) {
-    var selectedIndex by remember { mutableStateOf(-1) }
-    val onItemClick = { index: Int -> selectedIndex = index}
-
-    val stateMachine = machineViewModel.stateMachine
-    val machine = machineViewModel.machineListResponse
-
-    paymentViewModel.reffID = 0L
-    PAYMENT_SUCCESS = true
-
-    ConstraintLayout(modifier = Modifier
-        .padding(top = 16.dp, bottom = 16.dp, start = 16.dp, end = 16.dp)
-        .fillMaxSize()
-    ) {
-        val (Content, ButtonCash, ButtonQris) = createRefs()
-        val modifier = Modifier
-
-        Box(modifier = modifier.constrainAs(Content) {
-            top.linkTo(parent.top)
-            start.linkTo(parent.start)
-            end.linkTo(parent.end)
-        }) {
-            MachineLoadData(
-                machineState = stateMachine,
-                selectedIndex = selectedIndex,
-                machine = machine,
-                navController = navController,
-                onItemClick = onItemClick)
-        }
-
-        ButtonView(title = "Pay With Cash", modifier.constrainAs(ButtonCash) {
-            bottom.linkTo(ButtonQris.top, 16.dp)
-            start.linkTo(parent.start)
-            end.linkTo(parent.end)
-        }, enable =
-        if (MACHINE_SELECTED){
-            true
-        }
-        else{
-            false
-        }
-        ){
-            MACHINE_SELECTED = false
-            machineViewModel.updateMachine(
-                navController = navController,
-                idMachine = MACHINE_ID,
-                timeMachine = MACHINE_TIME,
-                isPacket = MACHINE_PACKET,
-                typePayment = false,
-                transactionViewModel = transactionViewModel
-            )
-            Log.d("debug", "Number ${MACHINE_NUMBER} ${MACHINE_ID} ${MACHINE_TIME}")
-//            Log.d("debug", "value ${MENU_PACKET}")
-//            Toast.makeText(context, "Value Menu $selectedPrice", Toast.LENGTH_SHORT).show()
-        }
-
-        ButtonView(title = "Pay With Qris", modifier.constrainAs(ButtonQris) {
-            bottom.linkTo(parent.bottom, 16.dp)
-            start.linkTo(parent.start)
-            end.linkTo(parent.end)
-        }, enable =
-        if (MACHINE_SELECTED){
-            true
-        }
-        else{
-            false
-        }
-        ){
-            PAYMENT_SUCCESS = false
-            navController.navigate(route = Screens.Qris.route)
-//            Log.d("debug", "Key From Proto $QRIS_CLIENT_KEY")
-//            Log.d("debug", "ID From Proto $QRIS_CLIENT_ID")
-//            Log.d("debug", "Merchant From Proto $QRIS_MERCHANT_ID")
-//            MACHINE_SELECTED = false
-//            machineViewModel.updateMachine(
-//                navController = navController,
-//                idMachine = MACHINE_ID,
-//                timeMachine = MACHINE_TIME,
-//                isPacket = MACHINE_PACKET,
-//                transactionViewModel = transactionViewModel
-//            )
-            Log.d("debug", "Number ${MACHINE_NUMBER} ${MACHINE_ID} ${MACHINE_TIME}")
-//            Log.d("debug", "value ${MENU_PACKET}")
-//            Toast.makeText(context, "Value Menu $selectedPrice", Toast.LENGTH_SHORT).show()
-        }
-    }
+    ViewMachine(
+        machineViewModel = machineViewModel,
+        paymentViewModel = paymentViewModel,
+        navController = navController,
+        transactionViewModel = transactionViewModel
+    )
 }

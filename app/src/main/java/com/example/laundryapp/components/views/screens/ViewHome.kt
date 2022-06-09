@@ -116,7 +116,7 @@ fun ViewHome(
         .padding(top = 16.dp, bottom = 16.dp)
         .fillMaxSize()
     ) {
-        val (TextName, TextPrice, PricePick, ClassMachine, MenuPick, ButtonPick) = createRefs()
+        val (TransactionFinish, TransactionActive, PricePick, ClassMachine, MenuPick, ButtonPick) = createRefs()
         val modifier = Modifier
 
         Column(modifier = modifier.constrainAs(MenuPick) {
@@ -236,12 +236,31 @@ fun ViewHome(
                         selectedPriceNominal = label.price.toString()
                         MENU_MACHINE = label.priceTitle.toString()
                         PRICE = label.price.toString()
+                        PRICE_PACKET = label.isPacket!!
                         expandedPrice = false
                     }, text = {
                         Text(text = "${label.priceTitle.toString()} - ${label.price.toString()}")
                     })
                 }
             }
+        }
+
+        ButtonView(title = "Transaction Active", modifier.constrainAs(TransactionActive) {
+            top.linkTo(PricePick.bottom, 16.dp)
+            start.linkTo(parent.start)
+            end.linkTo(parent.end)
+        }, enable = true
+        ){
+            navController.navigate(route = Screens.TransactionActive.route)
+        }
+
+        ButtonView(title = "Transaction Finish", modifier.constrainAs(TransactionFinish) {
+            top.linkTo(TransactionActive.bottom, 16.dp)
+            start.linkTo(parent.start)
+            end.linkTo(parent.end)
+        }, enable = true
+        ){
+            navController.navigate(route = Screens.TransactionFinish.route)
         }
 
         if(!selectedIdMenu.isNullOrEmpty() && !selectedPrice.isNullOrEmpty() && selected_index_class != -1) buttonOn = true else buttonOn = false

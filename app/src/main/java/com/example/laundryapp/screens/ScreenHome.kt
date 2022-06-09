@@ -57,7 +57,6 @@ fun ScreenHome(
 
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WallHome(
     navController: NavController,
@@ -65,9 +64,6 @@ fun WallHome(
     menuViewModel: MenuViewModel,
     priceViewModel: PriceViewModel
 ) {
-    val stateStore = storeViewModel.stateStore
-    val store = storeViewModel.storeListResponse
-
     Box(modifier = Modifier.padding(start = 16.dp, end = 16.dp)) {
         ViewHome(menuViewModel = menuViewModel, priceViewModel = priceViewModel, navController = navController)
     }

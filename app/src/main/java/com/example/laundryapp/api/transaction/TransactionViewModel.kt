@@ -8,9 +8,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
+import com.example.laundryapp.BUTTON_VISIBLE
 import com.example.laundryapp.DATE_PICK
-import com.example.laundryapp.MACHINE_PACKET
 import com.example.laundryapp.STORE_ID
+import com.example.laundryapp.TRANSACTION_ID_FOR_DRYER
 import com.example.laundryapp.navigation.Screens
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,29 +21,44 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class TransactionViewModel: ViewModel() {
-    var transactionListResponse: ArrayList<TransactionModel> by mutableStateOf(arrayListOf())
-    var stateTransaction: Int by mutableStateOf(0)
+    var transactionListResponseActive: ArrayList<TransactionModel> by mutableStateOf(arrayListOf())
+    var transactionListResponseFinish: ArrayList<TransactionModel> by mutableStateOf(arrayListOf())
+    var stateTransactionActive: Int by mutableStateOf(0)
+    var stateTransactionFinish: Int by mutableStateOf(0)
     var errorMessage: String by mutableStateOf("")
 
-    fun getTransactionActive(){
+    fun getTransaction(isFinish: Boolean){
         try {
             Log.d("debug", "Date Transaction : ${DATE_PICK}")
-            TransactionApp.CreateInstance().fetchTransaction(lookup = "*",store = STORE_ID, date = "$DATE_PICK", finish = true).enqueue(object :
+            TransactionApp.CreateInstance().fetchTransaction(lookup = "*",store = STORE_ID, date = "$DATE_PICK", finish = isFinish).enqueue(object :
                 Callback<ArrayList<TransactionModel>> {
                 override fun onResponse(call: Call<ArrayList<TransactionModel>>, response: Response<ArrayList<TransactionModel>>) {
 //                    Log.d("debug", "url : ${response}")
                     Log.d("debug", "Code : ${response.code()}")
-                    stateTransaction = 0
+                    stateTransactionFinish = 0
+                    stateTransactionActive = 0
                     if(response.code() == 200){
                         response.body()?.let {
-                            transactionListResponse = response.body()!!
+                            if (!isFinish){
+                                transactionListResponseActive = response.body()!!
 //                            EXCEL_VALUE = transactionListResponse
 //                            Log.d("debug", "Code : ${response.code().toString()}")
-                            Log.d("debug", "Transaction Data : ${transactionListResponse}")
-                            stateTransaction = 1
+                                Log.d("debug", "Transaction Data : ${transactionListResponseActive}")
+                                stateTransactionActive = 1
+                            }
+                            else{
+                                transactionListResponseFinish = response.body()!!
+//                            EXCEL_VALUE = transactionListResponse
+//                            Log.d("debug", "Code : ${response.code().toString()}")
+                                Log.d("debug", "Transaction Data : ${transactionListResponseFinish}")
+                                stateTransactionFinish = 1
+                            }
                         }
-                        if (transactionListResponse.isNullOrEmpty()){
-                            stateTransaction = 3
+                        if (transactionListResponseActive.isNullOrEmpty()){
+                            stateTransactionActive = 3
+                        }
+                        if (transactionListResponseFinish.isNullOrEmpty()){
+                            stateTransactionFinish = 3
                         }
                     }
                 }
@@ -51,7 +67,8 @@ class TransactionViewModel: ViewModel() {
                     Log.d("debug", "Fail get Data ${t.message.toString()}")
                     if (t.message == t.message){
                         Log.d("debug", "Failed")
-                        stateTransaction = 2
+                        stateTransactionFinish = 2
+                        stateTransactionActive = 2
 //                        Toast.makeText(requireContext(), "Failed connect to server" , Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -111,6 +128,46 @@ class TransactionViewModel: ViewModel() {
                             inclusive = true
                         }
                     }
+                    BUTTON_VISIBLE = true
+                }
+            }
+
+            override fun onFailure(call: Call<TransactionModel>, t: Throwable) {
+                Log.d("error", t.message.toString())
+                if (t.message == t.message){
+
+//                    BtnOnMachine.isEnabled =true
+
+//                    Toast.makeText(requireContext(), "Tidak ada koneksi Internet" , Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun updateTransaction(
+        numbermachine: Int,
+        navController: NavController,
+        machineID: String
+    ){
+        val bodyUpdate = TransactionModel(
+            transactionNumberMachine = numbermachine,
+            stepOne = false,
+            transactionFinish = false,
+            transactionIdMachine = machineID,
+        )
+
+        TransactionApp.CreateInstance().updateTransaction(id = TRANSACTION_ID_FOR_DRYER,bodyUpdate).enqueue(object :
+            Callback<TransactionModel> {
+            override fun onResponse(call: Call<TransactionModel>, response: Response<TransactionModel>) {
+                Log.d("debug", "Code Update Transaction ${response}")
+                if(response.code() == 200){
+                    navController.navigate(route = Screens.Home.route){
+                        popUpTo(Screens.Home.route) {
+                            inclusive = true
+                        }
+                    }
+                    BUTTON_VISIBLE = true
                 }
             }
 
