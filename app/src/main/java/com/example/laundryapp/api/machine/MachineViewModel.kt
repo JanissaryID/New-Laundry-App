@@ -80,29 +80,42 @@ class MachineViewModel: ViewModel() {
                 override fun onResponse(call: Call<MachineModel>, response: Response<MachineModel>) {
                     Log.d("debug", "Code Update Machine ${response}")
                     if(response.code() == 200){
-                        if (!BUTTON_VISIBLE){
-                            transactionViewModel.updateTransaction(
-                                navController = navController,
-                                machineID = MACHINE_ID,
-                                numbermachine = MACHINE_NUMBER
-                            )
+                        val responseBodyData = response.body()
+                        Log.d("debug", "Body Update Machine ${response.body()}")
+                        if (responseBodyData!!.machineStatus!!){
+                            if (!BUTTON_VISIBLE){
+                                transactionViewModel.updateTransaction(
+                                    navController = navController,
+                                    machineID = MACHINE_ID,
+                                    numbermachine = MACHINE_NUMBER
+                                )
+                            }
+                            else{
+                                transactionViewModel.insertTransaction(
+                                    classMachine = CLASS_MACHINE,
+                                    machineID = MACHINE_ID,
+                                    machinePacket = PRICE_PACKET,
+                                    navController = navController,
+                                    numbermachine = MACHINE_NUMBER,
+                                    price = PRICE,
+                                    storeID = STORE_ID,
+                                    transactionMenuMachine = MENU_MACHINE,
+                                    transactionClassmachine = if(CLASS_MACHINE == 1) true else false,
+                                    typePaymentTransaction = typePayment, //False For Cash
+                                    typetransaction = MENU_TRANSACTION
+                                )
+                            }
                         }
                         else{
-                            transactionViewModel.insertTransaction(
-                                classMachine = CLASS_MACHINE,
-                                machineID = MACHINE_ID,
-                                machinePacket = PRICE_PACKET,
+                            updateMachine(
                                 navController = navController,
-                                numbermachine = MACHINE_NUMBER,
-                                price = PRICE,
-                                storeID = STORE_ID,
-                                transactionMenuMachine = MENU_MACHINE,
-                                transactionClassmachine = if(CLASS_MACHINE == 1) true else false,
-                                typePaymentTransaction = typePayment, //False For Cash
-                                typetransaction = MENU_TRANSACTION
+                                transactionViewModel = transactionViewModel,
+                                typePayment = typePayment,
+                                idMachine = idMachine,
+                                timeMachine = timeMachine,
+                                isPacket = isPacket
                             )
                         }
-
 //                        navController.navigate(route = Screens.Machine.route){
 //                            popUpTo(Screens.Machine.route) {
 //                                inclusive = true
