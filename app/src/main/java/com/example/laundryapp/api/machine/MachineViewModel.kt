@@ -9,6 +9,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.example.laundryapp.*
+import com.example.laundryapp.api.debug.DebugViewModel
 import com.example.laundryapp.api.transaction.TransactionViewModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -68,6 +69,7 @@ class MachineViewModel: ViewModel() {
         isPacket: Boolean,
         timeMachine: Int,
         transactionViewModel: TransactionViewModel,
+        debugViewModel: DebugViewModel = DebugViewModel(),
         typePayment: Boolean,
         navController: NavController
     ){
@@ -79,6 +81,11 @@ class MachineViewModel: ViewModel() {
                 @RequiresApi(Build.VERSION_CODES.O)
                 override fun onResponse(call: Call<MachineModel>, response: Response<MachineModel>) {
                     Log.d("debug", "Code Update Machine ${response}")
+                    debugViewModel.insertDebug(
+                        responseCode = response.code()!!,
+                        responseBody = "${response.body()}",
+                        responseLog =  "${response}"
+                    )
                     if(response.code() == 200){
                         val responseBodyData = response.body()
                         Log.d("debug", "Body Update Machine ${response.body()}")

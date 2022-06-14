@@ -8,5 +8,5 @@ import retrofit2.http.POST
 interface DebugService {
 
     @POST("Debug")
-    fun insertTransactions(@Body statusData: TransactionModel) : Call<TransactionModel>
+    fun insertDebug(@Body statusData: DebugModel) : Call<DebugModel>
 }
