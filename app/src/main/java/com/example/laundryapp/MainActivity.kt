@@ -63,25 +63,28 @@ class MainActivity : ComponentActivity() {
             storeViewModel.getStore(protoViewModel = protoViewModel, qrisViewModel = qrisViewModel)
         }
 
-
-
         setContent {
-            LaundryAppTheme {
+            LaundryAppTheme(darkTheme = false, dynamicColor = false) {
                 // A surface container using the 'background' color from the theme
                 navController = rememberNavController()
-                NavGraphSetup(
-                    navController = navController,
-                    storeViewModel = storeViewModel,
-                    qrisViewModel = qrisViewModel,
-                    menuViewModel = menuViewModel,
-                    priceViewModel = priceViewModel,
-                    transactionViewModel = transactionViewModel,
-                    machineViewModel = machineViewModel,
-                    paymentViewModel = paymentViewModel,
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+                    NavGraphSetup(
+                        navController = navController,
+                        storeViewModel = storeViewModel,
+                        qrisViewModel = qrisViewModel,
+                        menuViewModel = menuViewModel,
+                        priceViewModel = priceViewModel,
+                        transactionViewModel = transactionViewModel,
+                        machineViewModel = machineViewModel,
+                        paymentViewModel = paymentViewModel,
 //                    excelViewModel = excelViewModel,
-                    protoViewModel = protoViewModel,
-                    componentActivity = this
-                )
+                        protoViewModel = protoViewModel,
+                        componentActivity = this
+                    )
+                }
             }
         }
     }

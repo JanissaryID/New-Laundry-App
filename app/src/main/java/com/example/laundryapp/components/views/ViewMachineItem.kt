@@ -32,7 +32,7 @@ fun ViewMachineItem(
     Card(
         modifier = Modifier.padding(top = 10.dp, bottom = 10.dp, start = 4.dp, end = 4.dp),
         shape = RoundedCornerShape(25),
-        containerColor = Color.Transparent,
+//        containerColor = Color.Transparent,
         border = if (usedMachine) BorderStroke(6.dp, MaterialTheme.colorScheme.secondary) else BorderStroke(6.dp, MaterialTheme.colorScheme.primary)
     ) {
         Surface(

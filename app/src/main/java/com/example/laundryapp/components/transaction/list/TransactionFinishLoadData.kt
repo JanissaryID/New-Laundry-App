@@ -82,20 +82,20 @@ fun TransactionFinishLoadData(
 
                     val (StoreImage, TextEmpty) = createRefs()
 
-                    Image(painter = painterResource(
-                        id = R.drawable.ic_transaction),
-                        contentDescription = "Transaction Active Empty",
-                        modifier = Modifier
-                            .wrapContentHeight()
-                            .size(200.dp)
-                            .constrainAs(StoreImage)
-                            {
-                                top.linkTo(parent.top)
-                                start.linkTo(parent.start)
-                                bottom.linkTo(parent.bottom)
-                                end.linkTo(parent.end)
-                            }
-                    )
+//                    Image(painter = painterResource(
+//                        id = R.drawable.ic_transaction),
+//                        contentDescription = "Transaction Active Empty",
+//                        modifier = Modifier
+//                            .wrapContentHeight()
+//                            .size(200.dp)
+//                            .constrainAs(StoreImage)
+//                            {
+//                                top.linkTo(parent.top)
+//                                start.linkTo(parent.start)
+//                                bottom.linkTo(parent.bottom)
+//                                end.linkTo(parent.end)
+//                            }
+//                    )
 
                     Text(
                         text = "Transaction Active Empty",

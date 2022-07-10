@@ -19,6 +19,7 @@ import com.example.laundryapp.components.ButtonView
 import com.example.laundryapp.components.views.ViewHome
 //import com.example.laundryapp.components.home.HomeLoadData
 import com.example.laundryapp.components.views.ViewTopBarHome
+import com.example.laundryapp.components.views.screens.ViewHomeNew
 import com.example.laundryapp.navigation.Screens
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -41,19 +42,21 @@ fun ScreenHome(
     val date = current.format(formatDay)
     DATE_PICK = date
 
-    Scaffold(
-        topBar = { ViewTopBarHome(
-            navController = navController,
-            title = STORE_NAME
-        ) }
-    ){
+
+
+//    Scaffold(
+//        topBar = { ViewTopBarHome(
+//            navController = navController,
+//            title = STORE_NAME
+//        ) }
+//    ){
         WallHome(
             storeViewModel = storeViewModel,
             navController = navController,
             menuViewModel = menuViewModel,
             priceViewModel = priceViewModel
         )
-    }
+//    }
 
 }
 
@@ -64,7 +67,8 @@ fun WallHome(
     menuViewModel: MenuViewModel,
     priceViewModel: PriceViewModel
 ) {
-    Box(modifier = Modifier.padding(start = 16.dp, end = 16.dp)) {
-        ViewHome(menuViewModel = menuViewModel, priceViewModel = priceViewModel, navController = navController)
+    Box {
+        ViewHomeNew()
+//        ViewHome(menuViewModel = menuViewModel, priceViewModel = priceViewModel, navController = navController)
     }
 }

@@ -31,7 +31,7 @@ fun ViewButtonMenu(
     Card(
         modifier = Modifier.padding(top = 16.dp, bottom = 16.dp, start = 4.dp, end = 4.dp),
         shape = RoundedCornerShape(40),
-        containerColor = Color.Transparent
+//        colors = Color.Transparent
     ) {
         Surface(
             modifier = Modifier
