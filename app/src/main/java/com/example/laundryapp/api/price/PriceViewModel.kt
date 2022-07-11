@@ -18,29 +18,29 @@ class PriceViewModel: ViewModel() {
     var errorMessage: String by mutableStateOf("")
 
     fun getPrice(
-        classPrice: Boolean,
-        idMenu: String,
-        isPacket:Boolean
+        classPrice: Boolean
     ){
         try {
+            if (!priceListResponse.isNullOrEmpty()){
+                priceListResponse.clear()
+                statePrice = 0
+            }
             PriceApp.CreateInstance().fetchPrice(
                 lookup = "*",
                 store = STORE_ID,
                 classPrice = classPrice,
-                menu = idMenu,
-                packet = isPacket
             ).enqueue(object :
                 Callback<ArrayList<PriceModel>> {
                 override fun onResponse(call: Call<ArrayList<PriceModel>>, response: Response<ArrayList<PriceModel>>) {
 //                    Log.d("debug", "url : ${response}")
 //                    Log.d("debug", "Code : ${response.code().toString()}")
-                    statePrice = 0
+
                     if(response.code() == 200){
                         response.body()?.let {
                             priceListResponse = response.body()!!
 //                            MACHINE_DATA = machineListResponse
 //                            Log.d("debug", "Code : ${response.code().toString()}")
-//                            Log.d("debug", "Price Response : ${priceListResponse}")
+                            Log.d("debug", "Price Response : ${priceListResponse}")
                             statePrice = 1
                         }
                         if (priceListResponse.isNullOrEmpty()){

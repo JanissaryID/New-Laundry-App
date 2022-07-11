@@ -10,10 +10,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.laundryapp.DATE_PICK
-import com.example.laundryapp.KEY_URL
-import com.example.laundryapp.STORE_ID
-import com.example.laundryapp.STORE_NAME
+import com.example.laundryapp.*
 import com.example.laundryapp.api.machine.MachineViewModel
 import com.example.laundryapp.api.menu.MenuViewModel
 import com.example.laundryapp.api.payment.PaymentViewModel
@@ -45,13 +42,25 @@ fun NavGraphSetup(
         composable(
             route = Screens.Home.route,
         ){
-            menuViewModel.getMenu()
+            LaunchedEffect(key1 = STORE_ID){
+//                Log.d("debug", "Menu NavGraph")
+                priceViewModel.priceListResponse.clear()
+                priceViewModel.statePrice = 0
+            }
+//            menuViewModel.getMenu()
             ScreenHome(
-                storeViewModel = storeViewModel,
                 navController = navController,
-                menuViewModel = menuViewModel,
-                priceViewModel = priceViewModel
             )
+        }
+
+        composable(
+            route = Screens.Menu.route,
+        ){
+            LaunchedEffect(key1 = STORE_ID){
+//                Log.d("debug", "Menu NavGraph")
+                priceViewModel.getPrice(classPrice = if(CLASS_MACHINE == 0) false else true)
+            }
+            ScreenMenu(navController = navController, priceViewModel = priceViewModel)
         }
 
         composable(

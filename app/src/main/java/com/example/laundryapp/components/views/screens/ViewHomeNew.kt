@@ -13,8 +13,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.navigation.NavController
 import com.example.laundryapp.R
-import com.example.laundryapp.components.AdminComponent
+import com.example.laundryapp.components.ViewAdminComponent
 import com.example.laundryapp.components.informationStore
 import com.example.laundryapp.components.menuContainer
 import com.example.laundryapp.components.transactionFinishContainer
@@ -22,7 +23,7 @@ import com.example.laundryapp.data.DataMenu
 
 @Composable
 fun ViewHomeNew(
-
+    navController: NavController
 ) {
     Column(modifier = Modifier
         .padding(0.dp)
@@ -42,7 +43,7 @@ fun ViewHomeNew(
                     top.linkTo(parent.top)
                     start.linkTo(parent.start)
                 }) {
-                AdminComponent()
+                ViewAdminComponent()
             }
 
 
@@ -66,7 +67,6 @@ fun ViewHomeNew(
                     end.linkTo(parent.end)
                     top.linkTo(AdminComponent.bottom, 32.dp)
                     start.linkTo(parent.start)
-                    //                    bottom.linkTo(AdminComponent.bottom)
                 }) {
                 Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()){
                     Image(painter = painterResource(
@@ -89,6 +89,7 @@ fun ViewHomeNew(
                 informationStore()
             }
 
+            // Menu Container
             Surface(color = Color.Transparent,modifier = modifier
                 .fillMaxWidth()
                 .constrainAs(MenuContainer) {
@@ -96,7 +97,7 @@ fun ViewHomeNew(
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 }) {
-                menuContainer(dataMenu = DataMenu)
+                menuContainer(dataMenu = DataMenu, navController = navController)
             }
         }
         transactionFinishContainer()

@@ -4,14 +4,13 @@ import android.annotation.SuppressLint
 import android.os.Build
 import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
@@ -25,6 +24,7 @@ import com.example.laundryapp.components.views.ViewTopBar
 import com.example.laundryapp.navigation.Screens
 import com.example.laundryapp.proto.ProtoViewModel
 
+//@Suppress("UnusedMaterial3ScaffoldPaddingParameter")
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @RequiresApi(Build.VERSION_CODES.O)
@@ -44,13 +44,18 @@ fun ScreenSetting(
             screenBack = Screens.Home.route
         ) },
     ){
-        WallSetting(
-            protoViewModel = protoViewModel,
-            navController = navController,
+        Surface(
+            color = MaterialTheme.colorScheme.background,
+            modifier = Modifier.padding(it)
+                .fillMaxSize()
+        ) {
+            WallSetting(
+                protoViewModel = protoViewModel,
+                navController = navController,
 //            storeViewModel = storeViewModel
 //            componentActivity = componentActivity
-        )
-
+            )
+        }
     }
 }
 

@@ -15,6 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
@@ -62,9 +63,7 @@ fun ViewHome(
     if(!selectedMenu.isNullOrEmpty() && selected_index_class != -1){
         enablePrice = true
         priceViewModel.getPrice(
-            classPrice = if (selected_index_class == 0) false else true,
-            isPacket = selectedPacket,
-            idMenu = selectedIdMenu
+            classPrice = if (selected_index_class == 0) false else true
         )
     }
     else{
@@ -158,7 +157,7 @@ fun ViewHome(
 //                        MACHINE_TIME = label.priceMenu
 //                        MENU = label.id.toString()
 //                        MENU_TITLE = label.priceMenu.toString()
-                        selectedPacket = label.isPacket!!
+//                        selectedPacket = label.isPacket!!
                         selectedIdMenu = label.id.toString()
                         expandedMenu = false
 //                        Log.d("debug", "Value : ${selectedMenu} ${selectedMenuTemp}")
@@ -189,8 +188,8 @@ fun ViewHome(
                         }  else -1,
                         selected = if(selected_index_class == index) false else true,
                         onClick = on_click_index_class,
-//                        priceViewModel = priceViewModel,
-                        color = MaterialTheme.colorScheme.surface
+                        color = Color.Transparent,
+                        priceViewModel = priceViewModel
                     )
                 }
             }

@@ -1,5 +1,6 @@
 package com.example.laundryapp.components.views
 
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -14,40 +15,43 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.laundryapp.CLASS_MACHINE
+import com.example.laundryapp.api.price.PriceViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ViewButtonMenu(
     title: String,
     color: Color,
     index: Int,
     selected: Boolean,
-//    priceViewModel: PriceViewModel,
+    priceViewModel: PriceViewModel,
     onClick: (Int) -> Unit
 ) {
-//    TEMP_SELECTED_INDEX = index
-//    val context = LocalContext.current
-//    TEMP_SELECTED_INDEX = INDEX_CLASS_MACHINE
-    Card(
-        modifier = Modifier.padding(top = 16.dp, bottom = 16.dp, start = 4.dp, end = 4.dp),
-        shape = RoundedCornerShape(40),
-//        colors = Color.Transparent
+    Surface(modifier = Modifier
+        .padding(top = 8.dp, bottom = 8.dp, start = 8.dp, end = 8.dp),
+        color = Color.Transparent,
+        shape = RoundedCornerShape(50),
     ) {
         Surface(
             modifier = Modifier
-                .height(48.dp)
+                .height(34.dp)
                 .fillMaxWidth()
                 .clickable {
                     onClick.invoke(index)
+                    CLASS_MACHINE = index
+//                    priceViewModel.priceListResponse.clear()
+//                    Log.d("debug", "Selected Class : ${index}")
+                    priceViewModel.getPrice(classPrice = if(CLASS_MACHINE == 0) false else true)
                 },
             color = if (!selected) MaterialTheme.colorScheme.primary else color,
-            shape = RoundedCornerShape(40),
+            shape = RoundedCornerShape(50),
             contentColor = if (!selected) color else MaterialTheme.colorScheme.primary,
         ){
             Text(
+                color = if (selected) MaterialTheme.colorScheme.primary else Color.White,
                 text = title,
                 fontWeight = FontWeight.SemiBold,
-                fontSize = 18.sp,
+                fontSize = MaterialTheme.typography.titleSmall.fontSize,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.wrapContentHeight().padding(
                     start = 24.dp,

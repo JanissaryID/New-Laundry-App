@@ -26,7 +26,7 @@ var MACHINE_TIME: Int by mutableStateOf(0)
 
 
 //Transaction Variable
-var CLASS_MACHINE: Int by mutableStateOf(-1)
+//var CLASS_MACHINE: Int by mutableStateOf(-1)
 var PRICE: String by mutableStateOf("")
 var MENU_MACHINE: String by mutableStateOf("")
 var MENU_TRANSACTION: String by mutableStateOf("")
@@ -42,3 +42,6 @@ var PAYMENT_SUCCESS: Boolean by mutableStateOf(false)
 
 var TRANSACTION_ID_FOR_DRYER: String by mutableStateOf("")
 var BUTTON_VISIBLE: Boolean by mutableStateOf(true)
+
+//Menu Variable
+var CLASS_MACHINE: Int by mutableStateOf(0)

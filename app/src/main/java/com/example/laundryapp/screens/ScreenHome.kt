@@ -29,10 +29,7 @@ import java.time.format.DateTimeFormatter
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun ScreenHome(
-    navController: NavController,
-    storeViewModel: StoreViewModel,
-    menuViewModel: MenuViewModel,
-    priceViewModel: PriceViewModel
+    navController: NavController
 ) {
     val context = LocalContext.current
 
@@ -42,33 +39,17 @@ fun ScreenHome(
     val date = current.format(formatDay)
     DATE_PICK = date
 
-
-
-//    Scaffold(
-//        topBar = { ViewTopBarHome(
-//            navController = navController,
-//            title = STORE_NAME
-//        ) }
-//    ){
-        WallHome(
-            storeViewModel = storeViewModel,
-            navController = navController,
-            menuViewModel = menuViewModel,
-            priceViewModel = priceViewModel
-        )
-//    }
+    WallHome(
+        navController = navController,
+    )
 
 }
 
 @Composable
 fun WallHome(
-    navController: NavController,
-    storeViewModel: StoreViewModel,
-    menuViewModel: MenuViewModel,
-    priceViewModel: PriceViewModel
+    navController: NavController
 ) {
     Box {
-        ViewHomeNew()
-//        ViewHome(menuViewModel = menuViewModel, priceViewModel = priceViewModel, navController = navController)
+        ViewHomeNew(navController = navController)
     }
 }

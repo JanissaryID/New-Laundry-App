@@ -1,6 +1,8 @@
 package com.example.laundryapp.components
 
+import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
@@ -18,12 +20,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.navigation.NavController
 import com.example.laundryapp.R
 import com.example.laundryapp.data.Menu
+import com.example.laundryapp.navigation.Screens
 
 @Composable
 fun menuItem(
-    menu: Menu
+    menu: Menu,
+    navController: NavController
 ) {
     ConstraintLayout() {
         val (MenuIcon, MenuName, Notification) = createRefs()
@@ -31,6 +36,10 @@ fun menuItem(
         Surface(color = Color.White, shadowElevation = 16.dp, tonalElevation = 16.dp , modifier = Modifier
             .clip(CircleShape)
             .size(62.dp)
+            .clickable {
+                Log.d("debug", "${menu.menuName}")
+                navController.navigate(route = menu.menuNav)
+            }
             .constrainAs(MenuIcon) {
                 start.linkTo(parent.start)
                 top.linkTo(parent.top)
