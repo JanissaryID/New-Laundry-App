@@ -14,6 +14,13 @@ var STORE_ID: String by mutableStateOf("")
 var STORE_NAME: String by mutableStateOf("")
 var STORE_CITY: String by mutableStateOf("")
 var STORE_PASSWORD: String by mutableStateOf("")
+var STORE_ADDRESS: String by mutableStateOf("")
+
+//Screen Variable
+var SCREEN_TYPE: Int by mutableStateOf(0)
+var CHECK_PAYMENT: Boolean by mutableStateOf(false)
+var PAYMENT_METHOD: String by mutableStateOf("")
+var TYPE_SERVICE: String by mutableStateOf("")
 
 //Date Variable
 var DATE_PICK: String by mutableStateOf("")

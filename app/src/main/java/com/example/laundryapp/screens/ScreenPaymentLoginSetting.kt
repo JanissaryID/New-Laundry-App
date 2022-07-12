@@ -26,44 +26,31 @@ import com.example.laundryapp.components.PaymentLoadData
 import com.example.laundryapp.components.machine.MachineLoadData
 import com.example.laundryapp.components.views.ViewQris
 import com.example.laundryapp.components.views.ViewTopBar
+import com.example.laundryapp.components.views.screens.ViewPaymentLoginSetting
 import com.example.laundryapp.navigation.Screens
+import com.example.laundryapp.proto.ProtoViewModel
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScreenQris(
+fun ScreenPaymentLoginSetting(
     navController: NavController,
-    paymentViewModel: PaymentViewModel,
+    protoViewModel: ProtoViewModel
 ) {
     val context = LocalContext.current
 
-    Scaffold(
-        topBar = { ViewTopBar(
-            navController = navController,
-            title = TITLE_SCREEN[0],
-            screenBack = Screens.Machine.route
-        ) }
-    ){
-        WallQris(
-            navController = navController,
-            paymentViewModel = paymentViewModel,
-        )
-    }
+    WallPaymentLoginSetting(
+        navController = navController,
+        protoViewModel = protoViewModel
+    )
 
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun WallQris(
-    paymentViewModel: PaymentViewModel,
+fun WallPaymentLoginSetting(
     navController: NavController,
-    machineViewModel: MachineViewModel = MachineViewModel(),
-    transactionViewModel: TransactionViewModel = TransactionViewModel()
+    protoViewModel: ProtoViewModel
 ) {
-    ViewQris(
-        paymentViewModel = paymentViewModel,
-        navController = navController,
-        machineViewModel = machineViewModel,
-        transactionViewModel = transactionViewModel
-    )
+    ViewPaymentLoginSetting(screenType = SCREEN_TYPE, protoViewModel = protoViewModel, navController = navController)
 }

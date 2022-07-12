@@ -37,6 +37,9 @@ fun NavGraphSetup(
     componentActivity: ComponentActivity
 ) {
     val context = LocalContext.current
+
+    val errorGetData = 3
+
     NavHost(navController = navController, startDestination = Screens.Home.route){
 
         composable(
@@ -56,24 +59,24 @@ fun NavGraphSetup(
         composable(
             route = Screens.Menu.route,
         ){
-            LaunchedEffect(key1 = STORE_ID){
-//                Log.d("debug", "Menu NavGraph")
-                priceViewModel.getPrice(classPrice = if(CLASS_MACHINE == 0) false else true)
+            if (!STORE_ID.isNullOrEmpty()){
+                LaunchedEffect(key1 = STORE_ID){
+                    priceViewModel.getPrice(classPrice = if(CLASS_MACHINE == 0) false else true)
+                }
+            }
+            else{
+                priceViewModel.statePrice = errorGetData
             }
             ScreenMenu(navController = navController, priceViewModel = priceViewModel)
         }
 
         composable(
-            route = Screens.Qris.route,
+            route = Screens.PaymentLoginSetting.route,
         ){
             LaunchedEffect(key1 = STORE_ID){
-                Log.d("debug", "Qris NavGraph")
-                paymentViewModel.getQR()
+                Log.d("debug", "Payment Login Setting NavGraph")
             }
-            ScreenQris(
-                navController = navController,
-                paymentViewModel = paymentViewModel
-            )
+            ScreenPaymentLoginSetting(navController = navController, protoViewModel = protoViewModel)
         }
         
         composable(

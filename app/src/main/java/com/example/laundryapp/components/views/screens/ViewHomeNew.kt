@@ -1,6 +1,7 @@
 package com.example.laundryapp.components.views.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,11 +16,13 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.example.laundryapp.R
+import com.example.laundryapp.SCREEN_TYPE
 import com.example.laundryapp.components.ViewAdminComponent
 import com.example.laundryapp.components.informationStore
 import com.example.laundryapp.components.menuContainer
 import com.example.laundryapp.components.transactionFinishContainer
 import com.example.laundryapp.data.DataMenu
+import com.example.laundryapp.navigation.Screens
 
 @Composable
 fun ViewHomeNew(
@@ -43,22 +46,33 @@ fun ViewHomeNew(
                     top.linkTo(parent.top)
                     start.linkTo(parent.start)
                 }) {
-                ViewAdminComponent()
+                ViewAdminComponent(navController = navController)
             }
 
 
-            Image(painter = painterResource(
-                id = R.drawable.ic_gear),
-                contentDescription = "Setting",
-                modifier = Modifier
-                    .wrapContentHeight()
-                    .size(40.dp)
-                    .constrainAs(SettingIcon) {
-                        end.linkTo(parent.end)
-                        top.linkTo(AdminComponent.top)
-                        bottom.linkTo(AdminComponent.bottom)
-                    }
-            )
+            Surface(color = Color.Transparent, modifier = modifier
+                .clip(CircleShape)
+                .size(40.dp)
+                .constrainAs(SettingIcon) {
+                    end.linkTo(parent.end)
+                    top.linkTo(AdminComponent.top)
+                    bottom.linkTo(AdminComponent.bottom)
+                }) {
+                Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()){
+                    Image(painter = painterResource(
+                        id = R.drawable.ic_gear),
+                        contentDescription = "Setting",
+                        modifier = Modifier
+                            .clickable {
+                                SCREEN_TYPE = 2
+                                navController.navigate(route = Screens.PaymentLoginSetting.route)
+                            }
+                            .wrapContentHeight()
+                            .size(40.dp)
+                    )
+                }
+            }
+
 
             Surface(color = Color.White, shadowElevation = 16.dp, tonalElevation = 16.dp , modifier = modifier
                 .clip(CircleShape)

@@ -1,6 +1,7 @@
 package com.example.laundryapp.components.views
 
 import android.util.Log
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
@@ -14,6 +15,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.core.graphics.toColorInt
+import androidx.navigation.NavController
+import com.example.laundryapp.SCREEN_TYPE
+import com.example.laundryapp.navigation.Screens
 
 @Composable
 fun ViewMenuItem(
@@ -22,7 +26,8 @@ fun ViewMenuItem(
     menu_price: String,
     menu_time: String,
     menu_packet: Boolean,
-    menu_service: Boolean
+    menu_service: Boolean,
+    navController: NavController
 ) {
 
     val alfa = 0.8f
@@ -31,6 +36,11 @@ fun ViewMenuItem(
         Column(modifier = Modifier
             .padding(0.dp)
             .fillMaxSize()
+            .clickable {
+                SCREEN_TYPE = 0
+                navController.navigate(route = Screens.PaymentLoginSetting.route)
+                Log.d("debug", "Selected Menu : ${menu_title}")
+            }
         ){
             ConstraintLayout(
                 modifier = Modifier

@@ -37,8 +37,6 @@ fun ViewMenuNew(
 
 //    Log.d("debug", "Selected Class 1 : ${selected_index_class}")
 
-
-
     val menuPriceState = priceViewModel.statePrice
     val menuPrice = priceViewModel.priceListResponse
 
@@ -101,7 +99,11 @@ fun ViewMenuNew(
                 end.linkTo(parent.end)
             })
         {
-            MenuLoadData(menuState = menuPriceState, menuPrice = menuPrice)
+            MenuLoadData(
+                menuState = menuPriceState,
+                menuPrice = menuPrice,
+                navController = navController
+            )
         }
     }
 }

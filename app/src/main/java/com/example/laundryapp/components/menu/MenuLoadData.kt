@@ -17,6 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.navigation.NavController
 import com.example.laundryapp.R
 import com.example.laundryapp.api.machine.MachineModel
 import com.example.laundryapp.api.price.PriceModel
@@ -25,7 +26,8 @@ import com.example.laundryapp.components.machine.MachineColumn
 @Composable
 fun MenuLoadData(
     menuState: Int,
-    menuPrice: List<PriceModel>
+    menuPrice: List<PriceModel>,
+    navController: NavController
 ) {
     val context = LocalContext.current
     when (menuState) {
@@ -39,7 +41,7 @@ fun MenuLoadData(
         }
         1 -> {
             if (!menuPrice.isNullOrEmpty()){
-                MenuColumn(menuPriceModel = menuPrice)
+                MenuColumn(menuPriceModel = menuPrice, navController = navController)
             }
         }
         2 -> {
@@ -54,7 +56,7 @@ fun MenuLoadData(
                 )
             }
 //            Log.d("debug", "Error")
-            Toast.makeText(context, "Can't load data", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(context, "Can't load data", Toast.LENGTH_SHORT).show()
         }
         3 -> {
             Box(
@@ -70,7 +72,7 @@ fun MenuLoadData(
                     val (StoreImage, TextEmpty) = createRefs()
 
                     Image(painter = painterResource(
-                        id = R.drawable.ic_user),
+                        id = R.drawable.ic_bill),
                         contentDescription = "Machine Empty",
                         modifier = Modifier
                             .wrapContentHeight()

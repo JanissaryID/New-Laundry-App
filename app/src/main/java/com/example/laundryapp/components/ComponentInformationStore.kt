@@ -12,6 +12,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.laundryapp.R
+import com.example.laundryapp.STORE_ADDRESS
+import com.example.laundryapp.STORE_CITY
+import com.example.laundryapp.STORE_NAME
 
 @Composable
 fun informationStore() {
@@ -20,7 +23,7 @@ fun informationStore() {
         val modifier = Modifier
 
         Text(
-            text = "Alfa Omega Laundry",
+            text = STORE_NAME,
             color = MaterialTheme.colorScheme.primary,
             fontWeight = FontWeight.Bold,
             fontSize = MaterialTheme.typography.titleLarge.fontSize,
@@ -32,7 +35,7 @@ fun informationStore() {
         )
 
         Text(
-            text = "Salatiga",
+            text = STORE_CITY,
             color = MaterialTheme.colorScheme.primary,
             fontWeight = FontWeight.Normal,
             fontSize = MaterialTheme.typography.titleLarge.fontSize,
@@ -44,7 +47,7 @@ fun informationStore() {
         )
 
         Text(
-            text = "Jl. Pemuda Kemerdekaan",
+            text = STORE_ADDRESS,
             color = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f),
             fontWeight = FontWeight.Normal,
             fontSize = MaterialTheme.typography.titleMedium.fontSize,

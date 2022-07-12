@@ -17,7 +17,7 @@ fun ButtonView(title: String, modifier: Modifier = Modifier, enable: Boolean, on
         modifier = modifier
             .height(56.dp)
             .fillMaxWidth(),
-        shape = RoundedCornerShape(40.dp),
+        shape = RoundedCornerShape(30),
         elevation = null,
         enabled = enable
     ) {

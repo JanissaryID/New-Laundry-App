@@ -51,17 +51,15 @@ class MainActivity : ComponentActivity() {
             KEY_URL = it.keyUrl
             STORE_CITY = it.storeCity
             STORE_PASSWORD = it.storePassword
-//            QRIS_CLIENT_KEY = it.clientKey
-//            QRIS_CLIENT_ID = it.clientID
-//            QRIS_MERCHANT_ID = it.merchantID
-//            Log.d("debug", "Key From Proto $QRIS_CLIENT_KEY")
-//            Log.d("debug", "ID From Proto $QRIS_CLIENT_ID")
-//            Log.d("debug", "Merchant From Proto $QRIS_MERCHANT_ID")
+            Log.d("debug", "url $KEY_URL")
+            Log.d("debug", "city $STORE_CITY")
+            Log.d("debug", "pass $STORE_PASSWORD")
+            if (STORE_NAME.isNullOrEmpty() && STORE_ID.isNullOrEmpty()){
+                storeViewModel.getStore(qrisViewModel = qrisViewModel)
+            }
         })
 
-        if (STORE_NAME.isNullOrEmpty() && STORE_ID.isNullOrEmpty()){
-            storeViewModel.getStore(protoViewModel = protoViewModel, qrisViewModel = qrisViewModel)
-        }
+
 
         setContent {
             LaundryAppTheme(darkTheme = false, dynamicColor = false) {

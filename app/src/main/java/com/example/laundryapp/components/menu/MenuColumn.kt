@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.laundryapp.TITLE_SCREEN
 import com.example.laundryapp.api.menu.MenuModel
 import com.example.laundryapp.api.price.PriceModel
@@ -26,7 +27,8 @@ import com.example.laundryapp.screens.WallSetting
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MenuColumn(
-    menuPriceModel: List<PriceModel>
+    menuPriceModel: List<PriceModel>,
+    navController: NavController
 ) {
     val context = LocalContext.current
 
@@ -49,7 +51,8 @@ fun MenuColumn(
                         menu_price = menuPrice.price.toString(),
                         menu_time = menuPrice.priceTime.toString(),
                         menu_packet = menuPrice.isPacket!!,
-                        menu_service = menuPrice.isService!!
+                        menu_service = menuPrice.isService!!,
+                        navController = navController
                     )
                 }
             }

@@ -21,10 +21,6 @@ class PriceViewModel: ViewModel() {
         classPrice: Boolean
     ){
         try {
-            if (!priceListResponse.isNullOrEmpty()){
-                priceListResponse.clear()
-                statePrice = 0
-            }
             PriceApp.CreateInstance().fetchPrice(
                 lookup = "*",
                 store = STORE_ID,
@@ -36,6 +32,10 @@ class PriceViewModel: ViewModel() {
 //                    Log.d("debug", "Code : ${response.code().toString()}")
 
                     if(response.code() == 200){
+                        if (!priceListResponse.isNullOrEmpty()){
+                            priceListResponse.clear()
+                            statePrice = 0
+                        }
                         response.body()?.let {
                             priceListResponse = response.body()!!
 //                            MACHINE_DATA = machineListResponse

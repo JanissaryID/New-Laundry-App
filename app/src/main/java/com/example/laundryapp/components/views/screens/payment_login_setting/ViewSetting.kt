@@ -8,6 +8,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -24,8 +25,8 @@ fun ViewSetting(protoViewModel: ProtoViewModel) {
     var text_city_setting by remember { mutableStateOf(TextFieldValue(STORE_CITY)) }
     var text_password_setting by remember { mutableStateOf(TextFieldValue(STORE_PASSWORD)) }
 
-    Box(modifier = Modifier.padding(start = 16.dp, end = 16.dp)) {
-        Card(shape = RoundedCornerShape(20.dp)) {
+    Box{
+        Surface(color = Color.White ,shape = RoundedCornerShape(8)) {
             ConstraintLayout(modifier = Modifier
                 .wrapContentHeight()
                 .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 16.dp)
@@ -60,7 +61,7 @@ fun ViewSetting(protoViewModel: ProtoViewModel) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .constrainAs(inputFieldCity) {
-                            top.linkTo(inputFieldKey.bottom, 10.dp)
+                            top.linkTo(inputFieldKey.bottom, 16.dp)
                             start.linkTo(parent.start)
                             end.linkTo(parent.end)
                         },
@@ -82,7 +83,7 @@ fun ViewSetting(protoViewModel: ProtoViewModel) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .constrainAs(inputFieldPassword) {
-                            top.linkTo(inputFieldCity.bottom, 10.dp)
+                            top.linkTo(inputFieldCity.bottom, 16.dp)
                             start.linkTo(parent.start)
                             end.linkTo(parent.end)
                         },
@@ -103,7 +104,7 @@ fun ViewSetting(protoViewModel: ProtoViewModel) {
                     title = "Save",
                     enable = true,
                     modifier = Modifier.constrainAs(button){
-                        top.linkTo(inputFieldPassword.bottom, 10.dp)
+                        top.linkTo(inputFieldPassword.bottom, 16.dp)
                         end.linkTo(parent.end)
                         start.linkTo(parent.start)
                     },
