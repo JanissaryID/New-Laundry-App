@@ -45,15 +45,17 @@ fun MenuColumn(
                     modifier = Modifier
                         .fillMaxWidth()
                 ){
-                    ViewMenuItem(
-                        menu_title = menuPrice.menu!![0]!!.priceMenu.toString(),
-                        menu_price_title = menuPrice.priceTitle.toString(),
-                        menu_price = menuPrice.price.toString(),
-                        menu_time = menuPrice.priceTime.toString(),
-                        menu_packet = menuPrice.isPacket!!,
-                        menu_service = menuPrice.isService!!,
-                        navController = navController
-                    )
+                    if(!menuPrice.menu!![0]!!.priceMenu.toString().isNullOrEmpty()){
+                        ViewMenuItem(
+                            menu_title = menuPrice.menu!![0]!!.priceMenu.toString(),
+                            menu_price_title = menuPrice.priceTitle.toString(),
+                            menu_price = menuPrice.price.toString(),
+                            menu_time = menuPrice.priceTime.toString(),
+                            menu_packet = menuPrice.isPacket!!,
+                            menu_service = menuPrice.isService!!,
+                            navController = navController
+                        )
+                    }
                 }
             }
         }

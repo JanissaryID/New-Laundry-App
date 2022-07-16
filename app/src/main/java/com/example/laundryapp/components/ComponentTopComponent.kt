@@ -19,12 +19,13 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.example.laundryapp.R
 import com.example.laundryapp.SCREEN_TYPE
+import com.example.laundryapp.SEARCH_TEXT
 import com.example.laundryapp.navigation.Screens
 
 @Composable
 fun ViewAdminComponent(navController: NavController) {
     ConstraintLayout() {
-        val (Avatar, Name) = createRefs()
+        val (Avatar, Name, Logout) = createRefs()
         val modifier = Modifier
 
         Surface(color = Color.Transparent,modifier = Modifier.size(48.dp).clip(CircleShape).constrainAs(Avatar){
@@ -37,10 +38,6 @@ fun ViewAdminComponent(navController: NavController) {
                 modifier = modifier
                     .wrapContentHeight()
                     .size(48.dp)
-                    .clickable {
-                        SCREEN_TYPE = 1
-                        navController.navigate(route = Screens.PaymentLoginSetting.route)
-                    }
             )
         }
 
@@ -54,9 +51,26 @@ fun ViewAdminComponent(navController: NavController) {
                 .constrainAs(Name) {
                     start.linkTo(Avatar.end, 8.dp)
                     top.linkTo(Avatar.top)
-                    bottom.linkTo(Avatar.bottom)
                 }
         )
+
+        Surface(color = Color.Transparent,modifier = Modifier.wrapContentSize().clip(CircleShape).constrainAs(Logout) {
+            start.linkTo(Avatar.end, 8.dp)
+            bottom.linkTo(Avatar.bottom)
+        }){
+            Text(
+                text = "Logout",
+                color = MaterialTheme.colorScheme.primary,
+                fontWeight = FontWeight.Bold,
+                fontSize = MaterialTheme.typography.labelMedium.fontSize,
+                modifier = modifier
+                    .wrapContentHeight()
+                    .clickable {
+                        SCREEN_TYPE = 1
+                        navController.navigate(route = Screens.PaymentLoginSetting.route)
+                    }
+            )
+        }
     }
 }
 

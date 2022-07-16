@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.laundryapp.api.customer.CustomerViewModel
 import com.example.laundryapp.api.machine.MachineViewModel
 import com.example.laundryapp.api.menu.MenuViewModel
 import com.example.laundryapp.api.payment.PaymentViewModel
@@ -33,12 +34,11 @@ class MainActivity : ComponentActivity() {
     lateinit var navController: NavHostController
 
     val storeViewModel by viewModels<StoreViewModel>()
-    val menuViewModel by viewModels<MenuViewModel>()
     val priceViewModel by viewModels<PriceViewModel>()
     val machineViewModel by viewModels<MachineViewModel>()
     val transactionViewModel by viewModels<TransactionViewModel>()
-    val paymentViewModel by viewModels<PaymentViewModel>()
     val qrisViewModel by viewModels<QrisViewModel>()
+    val customerViewModel by viewModels<CustomerViewModel>()
 
     private lateinit var protoViewModel: ProtoViewModel
 
@@ -51,9 +51,9 @@ class MainActivity : ComponentActivity() {
             KEY_URL = it.keyUrl
             STORE_CITY = it.storeCity
             STORE_PASSWORD = it.storePassword
-            Log.d("debug", "url $KEY_URL")
-            Log.d("debug", "city $STORE_CITY")
-            Log.d("debug", "pass $STORE_PASSWORD")
+//            Log.d("debug", "url $KEY_URL")
+//            Log.d("debug", "city $STORE_CITY")
+//            Log.d("debug", "pass $STORE_PASSWORD")
             if (STORE_NAME.isNullOrEmpty() && STORE_ID.isNullOrEmpty()){
                 storeViewModel.getStore(qrisViewModel = qrisViewModel)
             }
@@ -71,16 +71,11 @@ class MainActivity : ComponentActivity() {
                 ) {
                     NavGraphSetup(
                         navController = navController,
-                        storeViewModel = storeViewModel,
-                        qrisViewModel = qrisViewModel,
-                        menuViewModel = menuViewModel,
                         priceViewModel = priceViewModel,
                         transactionViewModel = transactionViewModel,
                         machineViewModel = machineViewModel,
-                        paymentViewModel = paymentViewModel,
-//                    excelViewModel = excelViewModel,
                         protoViewModel = protoViewModel,
-                        componentActivity = this
+                        customerViewModel = customerViewModel
                     )
                 }
             }

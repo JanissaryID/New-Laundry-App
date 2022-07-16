@@ -4,6 +4,7 @@ sealed class Screens(val route: String){
     object Home: Screens(route = "home_screen")
     object Menu: Screens(route = "menu_screen")
     object PaymentLoginSetting: Screens(route = "payment_login_setting_screen")
+    object Customer: Screens(route = "customer_screen")
     object Qris: Screens(route = "qris_screen")
     object TransactionActive: Screens(route = "transaction_active_screen")
     object TransactionFinish: Screens(route = "transaction_finish_screen")

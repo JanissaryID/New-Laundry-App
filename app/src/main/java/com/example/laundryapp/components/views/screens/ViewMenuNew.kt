@@ -35,8 +35,6 @@ fun ViewMenuNew(
     var selected_index_class by remember { mutableStateOf(0) }
     val on_click_index_class = { index: Int -> selected_index_class = index}
 
-//    Log.d("debug", "Selected Class 1 : ${selected_index_class}")
-
     val menuPriceState = priceViewModel.statePrice
     val menuPrice = priceViewModel.priceListResponse
 

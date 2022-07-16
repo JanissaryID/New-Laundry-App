@@ -21,12 +21,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
+import com.example.laundryapp.BACK_CUSTOMER
 import com.example.laundryapp.R
 import com.example.laundryapp.data.Menu
 import com.example.laundryapp.navigation.Screens
 
 @Composable
 fun menuItem(
+    index: Int,
     menu: Menu,
     navController: NavController
 ) {
@@ -39,6 +41,9 @@ fun menuItem(
             .clickable {
                 Log.d("debug", "${menu.menuName}")
                 navController.navigate(route = menu.menuNav)
+                if(index == 2){
+                    BACK_CUSTOMER = false
+                }
             }
             .constrainAs(MenuIcon) {
                 start.linkTo(parent.start)
@@ -56,7 +61,7 @@ fun menuItem(
             )
         }
 
-        if(menu.menuName == "Active"){
+        if(index == 1){
             Surface(color = MaterialTheme.colorScheme.primary, shadowElevation = 16.dp, tonalElevation = 16.dp , modifier = Modifier
                 .clip(CircleShape)
                 .size(16.dp)

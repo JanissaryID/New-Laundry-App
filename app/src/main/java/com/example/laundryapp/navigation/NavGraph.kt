@@ -11,6 +11,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.laundryapp.*
+import com.example.laundryapp.api.customer.CustomerViewModel
 import com.example.laundryapp.api.machine.MachineViewModel
 import com.example.laundryapp.api.menu.MenuViewModel
 import com.example.laundryapp.api.payment.PaymentViewModel
@@ -25,16 +26,11 @@ import com.example.laundryapp.screens.*
 @Composable
 fun NavGraphSetup(
     navController: NavHostController,
-    storeViewModel: StoreViewModel,
-    qrisViewModel: QrisViewModel,
-    menuViewModel: MenuViewModel,
     priceViewModel: PriceViewModel,
     machineViewModel: MachineViewModel,
     transactionViewModel: TransactionViewModel,
-    paymentViewModel: PaymentViewModel,
     protoViewModel: ProtoViewModel,
-//    excelViewModel: ExcelViewModel,
-    componentActivity: ComponentActivity
+    customerViewModel: CustomerViewModel
 ) {
     val context = LocalContext.current
 
@@ -46,9 +42,14 @@ fun NavGraphSetup(
             route = Screens.Home.route,
         ){
             LaunchedEffect(key1 = STORE_ID){
-//                Log.d("debug", "Menu NavGraph")
                 priceViewModel.priceListResponse.clear()
                 priceViewModel.statePrice = 0
+
+                CHECK_PAYMENT = false
+                CUSTOMER_CITY = ""
+                CUSTOMER_ID = ""
+                CUSTOMER_PHONE = ""
+                CUSTOMER_NAME = ""
             }
 //            menuViewModel.getMenu()
             ScreenHome(
@@ -62,6 +63,11 @@ fun NavGraphSetup(
             if (!STORE_ID.isNullOrEmpty()){
                 LaunchedEffect(key1 = STORE_ID){
                     priceViewModel.getPrice(classPrice = if(CLASS_MACHINE == 0) false else true)
+                    CHECK_PAYMENT = false
+                    CUSTOMER_CITY = ""
+                    CUSTOMER_ID = ""
+                    CUSTOMER_PHONE = ""
+                    CUSTOMER_NAME = ""
                 }
             }
             else{
@@ -77,6 +83,16 @@ fun NavGraphSetup(
                 Log.d("debug", "Payment Login Setting NavGraph")
             }
             ScreenPaymentLoginSetting(navController = navController, protoViewModel = protoViewModel)
+        }
+
+        composable(
+            route = Screens.Customer.route,
+        ){
+            SEARCH_TEXT = ""
+            LaunchedEffect(key1 = STORE_ID){
+                customerViewModel.getCustomer()
+            }
+            ScreenCustomer(navController = navController, customerViewModel = customerViewModel)
         }
         
         composable(

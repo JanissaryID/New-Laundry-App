@@ -13,6 +13,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.navigation.NavController
 import com.example.laundryapp.*
 import com.example.laundryapp.R
 import com.example.laundryapp.components.ButtonView
@@ -20,7 +21,7 @@ import com.example.laundryapp.components.MultipleRadioButtons
 import com.example.laundryapp.navigation.Screens
 
 @Composable
-fun ViewPayment() {
+fun ViewPayment(navController: NavController) {
     Surface(
         color = Color.White ,
         shape = RoundedCornerShape(8)) {
@@ -55,14 +56,17 @@ fun ViewPayment() {
             {
                 ConstraintLayout(modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { Log.d("debug", "Clicked") }
+                    .clickable {
+                        navController.navigate(route = Screens.Customer.route)
+                        BACK_CUSTOMER = true
+                    }
                     .padding(start = 8.dp, end = 4.dp, top = 8.dp, bottom = 8.dp)
                 ) {
 
                     val (NameCustomer, ArrowRight) = createRefs()
 
                     Text(
-                        text = "Chose Customer",
+                        text = if (CUSTOMER_NAME.isNullOrEmpty()) "Chose Customer" else CUSTOMER_NAME,
                         color = Color.White,
                         fontWeight = FontWeight.Normal,
                         fontSize = MaterialTheme.typography.titleLarge.fontSize,

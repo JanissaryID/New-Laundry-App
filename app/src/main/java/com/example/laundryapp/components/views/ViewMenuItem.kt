@@ -11,11 +11,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.core.graphics.toColorInt
 import androidx.navigation.NavController
+import com.example.laundryapp.BACK_CUSTOMER
+import com.example.laundryapp.R
 import com.example.laundryapp.SCREEN_TYPE
 import com.example.laundryapp.navigation.Screens
 
@@ -40,6 +43,7 @@ fun ViewMenuItem(
                 SCREEN_TYPE = 0
                 navController.navigate(route = Screens.PaymentLoginSetting.route)
                 Log.d("debug", "Selected Menu : ${menu_title}")
+
             }
         ){
             ConstraintLayout(

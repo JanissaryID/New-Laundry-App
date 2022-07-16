@@ -16,11 +16,23 @@ var STORE_CITY: String by mutableStateOf("")
 var STORE_PASSWORD: String by mutableStateOf("")
 var STORE_ADDRESS: String by mutableStateOf("")
 
-//Screen Variable
+//Screen Payment Variable
 var SCREEN_TYPE: Int by mutableStateOf(0)
 var CHECK_PAYMENT: Boolean by mutableStateOf(false)
 var PAYMENT_METHOD: String by mutableStateOf("")
 var TYPE_SERVICE: String by mutableStateOf("")
+
+//Search Variable
+var SEARCH_TEXT: String by mutableStateOf("")
+
+//Search Variable
+var BACK_CUSTOMER: Boolean by mutableStateOf(false)
+
+//Customer Variable
+var CUSTOMER_NAME: String by mutableStateOf("")
+var CUSTOMER_CITY: String by mutableStateOf("")
+var CUSTOMER_PHONE: String by mutableStateOf("")
+var CUSTOMER_ID: String by mutableStateOf("")
 
 //Date Variable
 var DATE_PICK: String by mutableStateOf("")

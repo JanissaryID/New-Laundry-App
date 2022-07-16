@@ -34,18 +34,14 @@ fun ViewPaymentLoginSetting(screenType: Int, protoViewModel: ProtoViewModel, nav
                 top.linkTo(parent.top)
                 start.linkTo(parent.start)
             }) {
-            if (screenType == 1){
-//                ViewTopComponent(
-//                    title = if (screenType == 0) "Payment" else if (screenType == 1 ) "Information" else "Setting",
-//                    navController = navController,
-//                    screenBack = Screens.Home.route
-//                )
+            if(screenType == 1){
+
             }
             else{
                 ViewTopComponent(
-                    title = if (screenType == 0) "Payment" else if (screenType == 1 ) "Login" else if (screenType == 3 ) "Information" else "Setting",
+                    title = if (screenType == 0) "Payment" else "Setting",
                     navController = navController,
-                    screenBack = Screens.Home.route
+                    screenBack = if (screenType == 0) Screens.Menu.route else Screens.Home.route
                 )
             }
         }
@@ -56,16 +52,13 @@ fun ViewPaymentLoginSetting(screenType: Int, protoViewModel: ProtoViewModel, nav
         }) {
             when (screenType) {
                 0 -> {
-                    ViewPayment()
+                    ViewPayment(navController = navController)
                 }
                 1 -> {
                     ViewLogin()
                 }
                 2 -> {
                     ViewSetting(protoViewModel = protoViewModel)
-                }
-                3 -> {
-
                 }
             }
         }

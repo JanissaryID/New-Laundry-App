@@ -22,7 +22,7 @@ object DataMenu {
     private val menuNav = arrayOf(
         Screens.Menu.route,
         Screens.TransactionActive.route,
-        Screens.Machine.route,
+        Screens.Customer.route,
         Screens.Setting.route
     )
 

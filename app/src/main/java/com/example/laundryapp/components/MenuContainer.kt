@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -15,8 +16,8 @@ fun menuContainer(dataMenu: DataMenu, navController: NavController) {
         columns = GridCells.Fixed(4),
         contentPadding = PaddingValues(0.dp),
     ) {
-        items(items = dataMenu.listMenu) { menu ->
-            menuItem(menu = menu, navController = navController)
+        itemsIndexed(items = dataMenu.listMenu) { index , menu ->
+            menuItem(menu = menu, navController = navController, index = index)
         }
     }
 }

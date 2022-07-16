@@ -15,6 +15,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.laundryapp.BACK_CUSTOMER
 import com.example.laundryapp.CLASS_MACHINE
 import com.example.laundryapp.api.price.PriceViewModel
 
@@ -39,6 +40,7 @@ fun ViewButtonMenu(
                 .clickable {
                     onClick.invoke(index)
                     CLASS_MACHINE = index
+
 //                    priceViewModel.priceListResponse.clear()
 //                    Log.d("debug", "Selected Class : ${index}")
                     priceViewModel.getPrice(classPrice = if(CLASS_MACHINE == 0) false else true)
