@@ -42,6 +42,8 @@ fun ViewHomeNew(
 
             Surface(color = Color.Transparent,modifier = modifier
                 .wrapContentSize()
+                .fillMaxWidth()
+                .height(64.dp)
                 .constrainAs(AdminComponent) {
                     top.linkTo(parent.top)
                     start.linkTo(parent.start)
@@ -49,29 +51,28 @@ fun ViewHomeNew(
                 ViewAdminComponent(navController = navController)
             }
 
-
-            Surface(color = Color.Transparent, modifier = modifier
-                .clip(CircleShape)
-                .size(40.dp)
-                .constrainAs(SettingIcon) {
-                    end.linkTo(parent.end)
-                    top.linkTo(AdminComponent.top)
-                    bottom.linkTo(AdminComponent.bottom)
-                }) {
-                Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()){
-                    Image(painter = painterResource(
-                        id = R.drawable.ic_gear),
-                        contentDescription = "Setting",
-                        modifier = Modifier
-                            .clickable {
-                                SCREEN_TYPE = 2
-                                navController.navigate(route = Screens.PaymentLoginSetting.route)
-                            }
-                            .wrapContentHeight()
-                            .size(40.dp)
-                    )
-                }
-            }
+//            Surface(color = Color.Transparent, modifier = modifier
+//                .clip(CircleShape)
+//                .size(24.dp)
+//                .constrainAs(SettingIcon) {
+//                    end.linkTo(parent.end)
+//                    top.linkTo(AdminComponent.top)
+//                    bottom.linkTo(AdminComponent.bottom)
+//                }) {
+//                Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()){
+//                    Image(painter = painterResource(
+//                        id = R.drawable.ic_gear),
+//                        contentDescription = "Setting",
+//                        modifier = Modifier
+//                            .clickable {
+//                                SCREEN_TYPE = 2
+//                                navController.navigate(route = Screens.PaymentLoginSetting.route)
+//                            }
+//                            .wrapContentHeight()
+//                            .size(36.dp)
+//                    )
+//                }
+//            }
 
 
             Surface(color = Color.White, shadowElevation = 16.dp, tonalElevation = 16.dp , modifier = modifier

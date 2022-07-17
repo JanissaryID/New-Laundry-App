@@ -18,6 +18,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.navigation.NavController
 import com.example.laundryapp.R
 import com.example.laundryapp.api.customer.CustomerModel
+import com.example.laundryapp.api.customer.CustomerViewModel
 import com.example.laundryapp.api.price.PriceModel
 import com.example.laundryapp.components.menu.MenuColumn
 
@@ -25,7 +26,7 @@ import com.example.laundryapp.components.menu.MenuColumn
 fun CustomerLoadData(
     customerState: Int,
     customer: List<CustomerModel>,
-    navController: NavController
+    navController: NavController,
 ) {
     val context = LocalContext.current
     when (customerState) {

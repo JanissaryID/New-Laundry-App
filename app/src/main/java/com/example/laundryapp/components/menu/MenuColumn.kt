@@ -32,34 +32,28 @@ fun MenuColumn(
 ) {
     val context = LocalContext.current
 
-    Scaffold(containerColor = Color.Transparent){ innerPadding ->
-        LazyColumn(
-            state = rememberLazyListState(),
-            modifier = Modifier.navigationBarsPadding(),
-            contentPadding = innerPadding,
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            itemsIndexed(items = menuPriceModel) { index, menuPrice ->
-                Surface(
-                    shape = RoundedCornerShape(20.dp),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                ){
-                    if(!menuPrice.menu!![0]!!.priceMenu.toString().isNullOrEmpty()){
-                        ViewMenuItem(
-                            menu_title = menuPrice.menu!![0]!!.priceMenu.toString(),
-                            menu_price_title = menuPrice.priceTitle.toString(),
-                            menu_price = menuPrice.price.toString(),
-                            menu_time = menuPrice.priceTime.toString(),
-                            menu_packet = menuPrice.isPacket!!,
-                            menu_service = menuPrice.isService!!,
-                            navController = navController
-                        )
-                    }
+    LazyColumn(
+        state = rememberLazyListState(),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+    ) {
+        itemsIndexed(items = menuPriceModel) { index, menuPrice ->
+            Surface(
+                shape = RoundedCornerShape(20.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+            ){
+                if(!menuPrice.menu.isNullOrEmpty()){
+                    ViewMenuItem(
+                        menu_title = menuPrice.menu!![0]!!.priceMenu.toString(),
+                        menu_price_title = menuPrice.priceTitle.toString(),
+                        menu_price = menuPrice.price.toString(),
+                        menu_time = menuPrice.priceTime.toString(),
+                        menu_packet = menuPrice.isPacket!!,
+                        menu_service = menuPrice.isService!!,
+                        navController = navController
+                    )
                 }
             }
         }
     }
-
-
 }

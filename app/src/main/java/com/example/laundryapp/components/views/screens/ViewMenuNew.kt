@@ -47,6 +47,8 @@ fun ViewMenuNew(
 
         Surface(color = Color.Transparent,modifier = modifier
             .wrapContentSize()
+            .fillMaxWidth()
+            .height(64.dp)
             .constrainAs(TopBar) {
                 top.linkTo(parent.top)
                 start.linkTo(parent.start)

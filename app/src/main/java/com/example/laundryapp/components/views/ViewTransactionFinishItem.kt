@@ -42,7 +42,6 @@ fun ViewTransactionFinishItem(
     step_one: Boolean,
     navController: NavController,
     number_machine: Int,
-//    idTransaction: Int,
     onClick: (String) -> Unit
 ) {
     val context = LocalContext.current

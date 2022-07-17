@@ -29,7 +29,8 @@ fun ViewPaymentLoginSetting(screenType: Int, protoViewModel: ProtoViewModel, nav
         val modifier = Modifier
 
         Surface(color = Color.Transparent, modifier = modifier
-            .wrapContentSize()
+            .fillMaxWidth()
+            .height(64.dp)
             .constrainAs(TopBar) {
                 top.linkTo(parent.top)
                 start.linkTo(parent.start)
@@ -47,7 +48,7 @@ fun ViewPaymentLoginSetting(screenType: Int, protoViewModel: ProtoViewModel, nav
         }
 
         Surface(color = Color.Transparent, modifier = modifier.constrainAs(ContentLayout) {
-            top.linkTo(TopBar.bottom, 42.dp)
+            top.linkTo(TopBar.bottom, 0.dp)
             start.linkTo(parent.start)
         }) {
             when (screenType) {

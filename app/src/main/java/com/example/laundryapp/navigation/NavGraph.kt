@@ -46,6 +46,9 @@ fun NavGraphSetup(
                 priceViewModel.statePrice = 0
 
                 CHECK_PAYMENT = false
+
+                EDIT_CUSTOMER = false
+
                 CUSTOMER_CITY = ""
                 CUSTOMER_ID = ""
                 CUSTOMER_PHONE = ""
@@ -63,11 +66,15 @@ fun NavGraphSetup(
             if (!STORE_ID.isNullOrEmpty()){
                 LaunchedEffect(key1 = STORE_ID){
                     priceViewModel.getPrice(classPrice = if(CLASS_MACHINE == 0) false else true)
+
                     CHECK_PAYMENT = false
+
                     CUSTOMER_CITY = ""
                     CUSTOMER_ID = ""
                     CUSTOMER_PHONE = ""
                     CUSTOMER_NAME = ""
+
+                    EDIT_CUSTOMER = false
                 }
             }
             else{
@@ -91,8 +98,24 @@ fun NavGraphSetup(
             SEARCH_TEXT = ""
             LaunchedEffect(key1 = STORE_ID){
                 customerViewModel.getCustomer()
+                CUSTOMER_CITY = ""
+                CUSTOMER_NAME = ""
+                CUSTOMER_ID = ""
+                CUSTOMER_PHONE = ""
+
+                EDIT_CUSTOMER = false
             }
             ScreenCustomer(navController = navController, customerViewModel = customerViewModel)
+        }
+
+        composable(
+            route = Screens.AddCustomer.route,
+        ){
+            SEARCH_TEXT = ""
+            LaunchedEffect(key1 = STORE_ID){
+//                customerViewModel.getCustomer()
+            }
+            ScreenAddCustomer(navController = navController, customerViewModel = customerViewModel)
         }
         
         composable(

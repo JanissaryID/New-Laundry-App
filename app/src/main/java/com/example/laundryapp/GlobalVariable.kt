@@ -27,6 +27,7 @@ var SEARCH_TEXT: String by mutableStateOf("")
 
 //Search Variable
 var BACK_CUSTOMER: Boolean by mutableStateOf(false)
+var EDIT_CUSTOMER: Boolean by mutableStateOf(false)
 
 //Customer Variable
 var CUSTOMER_NAME: String by mutableStateOf("")
@@ -64,3 +65,6 @@ var BUTTON_VISIBLE: Boolean by mutableStateOf(true)
 
 //Menu Variable
 var CLASS_MACHINE: Int by mutableStateOf(0)
+
+//Dialog Open
+var IS_DIALOG_OPEN =  mutableStateOf(false)

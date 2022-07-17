@@ -17,7 +17,6 @@ import com.example.laundryapp.components.views.ViewTopBar
 import com.example.laundryapp.components.views.screens.ViewMenuNew
 import com.example.laundryapp.navigation.Screens
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScreenMenu(
     navController: NavController,

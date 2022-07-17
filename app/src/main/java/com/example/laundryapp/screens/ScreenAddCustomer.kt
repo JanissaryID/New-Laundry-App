@@ -4,28 +4,23 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import com.example.laundryapp.api.customer.CustomerViewModel
-import com.example.laundryapp.api.price.PriceViewModel
+import com.example.laundryapp.components.views.screens.ViewAddCustomer
 import com.example.laundryapp.components.views.screens.ViewCustomer
-import com.example.laundryapp.components.views.screens.ViewMenuNew
 
 @Composable
-fun ScreenCustomer(
-    customerViewModel: CustomerViewModel,
+fun ScreenAddCustomer(
     navController: NavController,
+    customerViewModel: CustomerViewModel
 ) {
-    WallCustomer(
-       customerViewModel = customerViewModel,
-        navController = navController)
+    WallAddCustomer(customerViewModel = customerViewModel, navController = navController)
 }
 
 @Composable
-fun WallCustomer(
+fun WallAddCustomer(
     customerViewModel: CustomerViewModel,
     navController: NavController
 ) {
     Box {
-        ViewCustomer(
-            customerViewModel = customerViewModel,
-            navController = navController)
+        ViewAddCustomer(navController = navController, customerViewModel = customerViewModel)
     }
 }
