@@ -26,7 +26,8 @@ class MachineViewModel: ViewModel() {
             MachineApp.CreateInstance().fetchMachine(
                 store = STORE_ID,
                 classes = if(CLASS_MACHINE == 0) false else true,
-                type = if (MENU_TRANSACTION != "Dryer") false else true
+                type = MENU_DRYER
+//                type = if (MENU_TRANSACTION != "Dryer") false else true
             ).enqueue(object :
                 Callback<ArrayList<MachineModel>> {
                 override fun onResponse(call: Call<ArrayList<MachineModel>>, response: Response<ArrayList<MachineModel>>) {

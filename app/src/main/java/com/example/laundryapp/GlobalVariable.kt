@@ -30,6 +30,7 @@ var CLASS_MACHINE: Int by mutableStateOf(-1)
 var PRICE: String by mutableStateOf("")
 var MENU_MACHINE: String by mutableStateOf("")
 var MENU_TRANSACTION: String by mutableStateOf("")
+var MENU_DRYER: Boolean by mutableStateOf(false)
 var PRICE_PACKET: Boolean by mutableStateOf(false)
 
 //Qris Variable

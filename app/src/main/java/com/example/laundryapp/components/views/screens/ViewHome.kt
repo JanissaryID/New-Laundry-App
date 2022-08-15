@@ -44,6 +44,7 @@ fun ViewHome(
     var menutemp = ""
 
     var selectedMenu by remember { mutableStateOf("") }
+    var selectedMenuType by remember { mutableStateOf(false) }
     var selectedIdMenu by remember { mutableStateOf("") }
     var selectedPacket by remember { mutableStateOf(false) }
     var selectedPrice by remember { mutableStateOf("") }
@@ -155,6 +156,7 @@ fun ViewHome(
                 menuPrice.forEach { label ->
                     DropdownMenuItem(onClick = {
                         selectedMenu = label.priceMenu.toString()
+                        selectedMenuType = label.isDryer!!
 //                        MACHINE_TIME = label.priceMenu
 //                        MENU = label.id.toString()
 //                        MENU_TITLE = label.priceMenu.toString()
@@ -280,6 +282,7 @@ fun ViewHome(
             buttonOn = false
             CLASS_MACHINE = selected_index_class
             MENU_TRANSACTION = selectedMenu
+            MENU_DRYER = selectedMenuType
             navController.navigate(route = Screens.Machine.route)
             Log.d("debug", "price Menu ${selectedPriceNominal}")
 //            Log.d("debug", "value ${MENU_PACKET}")
